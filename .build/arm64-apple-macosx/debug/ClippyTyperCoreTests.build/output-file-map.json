@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCoreTests.build/master.swiftdeps"
+  },
+  "/Users/tom/Documents/Projects/ClippyTyper/Tests/ClippyTyperCoreTests/TypingEngineTests.swift": {
+    "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCoreTests.build/TypingEngineTests.d",
+    "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCoreTests.build/TypingEngineTests.swift.o",
+    "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCoreTests.build/TypingEngineTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCoreTests.build/TypingEngineTests.swiftdeps",
+    "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCoreTests.build/TypingEngineTests.dia"
+  }
+}

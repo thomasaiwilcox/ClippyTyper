@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/master.swiftdeps"
+  },
+  "/Users/tom/Documents/Projects/ClippyTyper/ClippyTyper/Preferences/RegisterDefaults.swift": {
+    "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/RegisterDefaults.d",
+    "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/RegisterDefaults.swift.o",
+    "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/RegisterDefaults~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/RegisterDefaults.swiftdeps",
+    "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/RegisterDefaults.dia"
+  },
+  "/Users/tom/Documents/Projects/ClippyTyper/ClippyTyper/Preferences/UserDefaultsKeys.swift": {
+    "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/UserDefaultsKeys.d",
+    "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/UserDefaultsKeys.swift.o",
+    "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/UserDefaultsKeys~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/UserDefaultsKeys.swiftdeps",
+    "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/UserDefaultsKeys.dia"
+  }
+}
