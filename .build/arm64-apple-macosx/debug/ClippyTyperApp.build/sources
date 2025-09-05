@@ -1,10 +1,11 @@
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AXKeystrokeSender.swift
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AppDelegate.swift
-/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HotkeyManager.swift
+/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MainApp.swift
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift
+/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/Notifications.swift
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift
 /Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift

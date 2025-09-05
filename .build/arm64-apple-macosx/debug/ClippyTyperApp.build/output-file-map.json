@@ -16,12 +16,12 @@
     "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AppDelegate.swiftdeps",
     "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AppDelegate.dia"
   },
-  "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HotkeyManager.swift": {
-    "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.d",
-    "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.swift.o",
-    "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager~partial.swiftmodule",
-    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.swiftdeps",
-    "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.dia"
+  "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift": {
+    "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.d",
+    "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.swift.o",
+    "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.swiftdeps",
+    "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.dia"
   },
   "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift": {
     "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyboardEventMonitor.d",
@@ -50,6 +50,13 @@
     "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MenuBarController~partial.swiftmodule",
     "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MenuBarController.swiftdeps",
     "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MenuBarController.dia"
+  },
+  "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/Notifications.swift": {
+    "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.d",
+    "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.swift.o",
+    "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.swiftdeps",
+    "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.dia"
   },
   "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift": {
     "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.d",

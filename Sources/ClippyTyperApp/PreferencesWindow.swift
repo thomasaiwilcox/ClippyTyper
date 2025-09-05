@@ -30,6 +30,13 @@ final class PreferencesViewController: NSViewController {
         return b
     }()
 
+    private let hotkeyStatusLabel: NSTextField = {
+        let tf = NSTextField(labelWithString: "")
+        tf.textColor = .secondaryLabelColor
+        tf.lineBreakMode = .byTruncatingTail
+        return tf
+    }()
+
     private let launchAtLoginCheckbox: NSButton = {
         let b = NSButton(checkboxWithTitle: "Launch at login", target: nil, action: nil)
         return b
@@ -43,6 +50,11 @@ final class PreferencesViewController: NSViewController {
     private let doublePressLabel = NSTextField(labelWithString: "Double‑press window (seconds)")
     private let doublePressSlider = NSSlider(value: 0.4, minValue: 0.2, maxValue: 1.0, target: nil, action: nil)
     private let doublePressValueLabel = NSTextField(labelWithString: "0.4")
+
+    private let instantPasteFallbackCheckbox: NSButton = {
+        let b = NSButton(checkboxWithTitle: "Use instant paste fallback when typing fails", target: nil, action: nil)
+        return b
+    }()
 
     var onTypingSpeedChanged: ((Double) -> Void)?
     var onHotkeyChanged: ((String) -> Void)?
@@ -71,9 +83,10 @@ final class PreferencesViewController: NSViewController {
         let dpw = defaults.double(forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
         doublePressSlider.doubleValue = (dpw > 0 ? dpw : 0.4)
         doublePressValueLabel.stringValue = String(format: "%.1f", doublePressSlider.doubleValue)
+        instantPasteFallbackCheckbox.state = defaults.bool(forKey: PreferencesKeys.instantPasteFallback) ? .on : .off
 
         // Build layout
-        [speedLabel, speedSlider, speedValueLabel, hotkeyLabel, hotkeyField, applyHotkeyButton, launchAtLoginCheckbox, emergencyCancelCheckbox, doublePressLabel, doublePressSlider, doublePressValueLabel].forEach {
+        [speedLabel, speedSlider, speedValueLabel, hotkeyLabel, hotkeyField, applyHotkeyButton, hotkeyStatusLabel, launchAtLoginCheckbox, emergencyCancelCheckbox, doublePressLabel, doublePressSlider, doublePressValueLabel, instantPasteFallbackCheckbox].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
@@ -99,7 +112,11 @@ final class PreferencesViewController: NSViewController {
             applyHotkeyButton.centerYAnchor.constraint(equalTo: hotkeyField.centerYAnchor),
             applyHotkeyButton.leadingAnchor.constraint(equalTo: hotkeyField.trailingAnchor, constant: 8),
 
-            launchAtLoginCheckbox.topAnchor.constraint(equalTo: hotkeyField.bottomAnchor, constant: 16),
+            hotkeyStatusLabel.topAnchor.constraint(equalTo: hotkeyField.bottomAnchor, constant: 6),
+            hotkeyStatusLabel.leadingAnchor.constraint(equalTo: hotkeyField.leadingAnchor),
+            hotkeyStatusLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
+
+            launchAtLoginCheckbox.topAnchor.constraint(equalTo: hotkeyStatusLabel.bottomAnchor, constant: 12),
             launchAtLoginCheckbox.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
 
             emergencyCancelCheckbox.topAnchor.constraint(equalTo: launchAtLoginCheckbox.bottomAnchor, constant: 12),
@@ -113,7 +130,10 @@ final class PreferencesViewController: NSViewController {
             doublePressSlider.topAnchor.constraint(equalTo: doublePressLabel.bottomAnchor, constant: 8),
 
             doublePressValueLabel.centerYAnchor.constraint(equalTo: doublePressSlider.centerYAnchor),
-            doublePressValueLabel.leadingAnchor.constraint(equalTo: doublePressSlider.trailingAnchor, constant: 8)
+            doublePressValueLabel.leadingAnchor.constraint(equalTo: doublePressSlider.trailingAnchor, constant: 8),
+
+            instantPasteFallbackCheckbox.topAnchor.constraint(equalTo: doublePressSlider.bottomAnchor, constant: 16),
+            instantPasteFallbackCheckbox.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor)
         ])
 
         // Wire actions
@@ -127,6 +147,15 @@ final class PreferencesViewController: NSViewController {
         emergencyCancelCheckbox.action = #selector(onEmergencyCancelToggled)
         doublePressSlider.target = self
         doublePressSlider.action = #selector(onDoublePressWindowSliderChanged)
+        instantPasteFallbackCheckbox.target = self
+        instantPasteFallbackCheckbox.action = #selector(onInstantPasteFallbackToggled)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(onHotkeyRegistrationResult(_:)), name: .hotkeyRegistrationResult, object: nil)
+    }
+
+    @objc private func onInstantPasteFallbackToggled() {
+        let enabled = (instantPasteFallbackCheckbox.state == .on)
+        UserDefaults.standard.set(enabled, forKey: PreferencesKeys.instantPasteFallback)
     }
 
     @objc private func onSpeedChanged() {
@@ -135,6 +164,17 @@ final class PreferencesViewController: NSViewController {
         speedValueLabel.stringValue = String(Int(val))
         UserDefaults.standard.set(val, forKey: PreferencesKeys.typingSpeed)
         onTypingSpeedChanged?(val)
+    }
+
+    @objc private func onHotkeyRegistrationResult(_ note: Notification) {
+        guard let info = note.object as? HotkeyRegistrationInfo else { return }
+        if info.success {
+            hotkeyStatusLabel.stringValue = "Registered: \(info.hotkey)"
+            hotkeyStatusLabel.textColor = .secondaryLabelColor
+        } else {
+            hotkeyStatusLabel.stringValue = info.message ?? "Failed to register hotkey"
+            hotkeyStatusLabel.textColor = .systemRed
+        }
     }
 
     @objc private func applyHotkey() {

@@ -1,13 +1,15 @@
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AXKeystrokeSender.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AppDelegate.swift.o
-/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.swift.o
+/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyboardEventMonitor.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/LaunchAtLoginManager.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MainApp.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MenuBarController.swift.o
+/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/TypingSession.swift.o
+/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCore.build/KeystrokeSender.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCore.build/SpeedController.swift.o
 /Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCore.build/TextTokenizer.swift.o

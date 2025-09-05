@@ -1,6 +1,7 @@
 import AppKit
 import ClippyTyperCore
 import ClippyTyperPreferences
+import ClippyTyperAppSupport
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var menuBar: MenuBarController!
@@ -33,9 +34,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Register global hotkey from preferences
         let hotkeyString = UserDefaults.standard.string(forKey: PreferencesKeys.hotkey) ?? "ctrl+opt+t"
-        let hk = HotkeyManager()
-        hk.register(hotkeyString: hotkeyString) { [weak self] in self?.startTypingFromClipboard() }
-        self.hotkeyManager = hk
+        self.hotkeyManager = HotkeyManager()
+        self.registerHotkey(hotkeyString)
 
         let pauseHK = HotkeyManager()
         pauseHK.register(hotkeyString: "ctrl+opt+esc") { [weak self] in self?.togglePause() }
@@ -48,11 +48,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Optional emergency monitor: double-press ESC or ctrl+opt+cmd+esc (configurable)
         let window = UserDefaults.standard.double(forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
         let monitor = KeyboardEventMonitor(doubleTapWindow: window > 0 ? window : 0.4)
-        monitor.onCancel = { [weak self] in self?.cancelTyping() }
-        self.keyboardMonitor = monitor
         if UserDefaults.standard.bool(forKey: PreferencesKeys.emergencyCancelEnabled) {
-            monitor.start()
+            monitor.onCancel = { [weak self] in self?.cancelTyping() }
+        } else {
+            monitor.onCancel = nil
         }
+        monitor.onStart = { [weak self] in self?.startTypingFromClipboard() }
+        monitor.setStartHotkey(from: hotkeyString)
+        self.keyboardMonitor = monitor
+        monitor.start()
     }
 
     private func startTypingFromClipboard() {
@@ -74,7 +78,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         self.session = newSession
         menuBar.setPaused(false)
         newSession.start(text: text, cps: speed) { result in
-            if case .failure(let error) = result { NSLog("Typing failed: \(error)") }
+            if case .failure(let error) = result {
+                NSLog("Typing failed: \(error)")
+                if UserDefaults.standard.bool(forKey: PreferencesKeys.instantPasteFallback) {
+                    KeyEventUtil.sendCommandV()
+                }
+            }
         }
     }
 
@@ -85,17 +94,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             vc.onHotkeyChanged = { [weak self] hotkey in self?.registerHotkey(hotkey) }
             vc.onEmergencyCancelEnabledChanged = { [weak self] enabled in
                 guard let self else { return }
-                if enabled {
-                    if self.keyboardMonitor == nil {
-                        let window = UserDefaults.standard.double(forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
-                        let m = KeyboardEventMonitor(doubleTapWindow: window > 0 ? window : 0.4)
-                        m.onCancel = { [weak self] in self?.cancelTyping() }
-                        self.keyboardMonitor = m
-                    }
-                    self.keyboardMonitor?.start()
-                } else {
-                    self.keyboardMonitor?.stop()
+                if self.keyboardMonitor == nil {
+                    let window = UserDefaults.standard.double(forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
+                    let m = KeyboardEventMonitor(doubleTapWindow: window > 0 ? window : 0.4)
+                    m.onStart = { [weak self] in self?.startTypingFromClipboard() }
+                    m.setStartHotkey(from: UserDefaults.standard.string(forKey: PreferencesKeys.hotkey) ?? "ctrl+opt+t")
+                    m.start()
+                    self.keyboardMonitor = m
                 }
+                self.keyboardMonitor?.onCancel = enabled ? { [weak self] in self?.cancelTyping() } : nil
             }
             vc.onDoublePressWindowChanged = { [weak self] seconds in
                 self?.keyboardMonitor?.setDoubleTapWindow(seconds)
@@ -113,9 +120,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func registerHotkey(_ hotkeyString: String) {
         if hotkeyManager == nil { hotkeyManager = HotkeyManager() }
-        hotkeyManager?.register(hotkeyString: hotkeyString) { [weak self] in
+        let ok = hotkeyManager?.register(hotkeyString: hotkeyString) { [weak self] in
             self?.startTypingFromClipboard()
-        }
+        } ?? false
+        keyboardMonitor?.setStartHotkey(from: hotkeyString)
+        NotificationCenter.default.post(name: .hotkeyRegistrationResult, object: HotkeyRegistrationInfo(success: ok, hotkey: hotkeyString, message: ok ? nil : "Hotkey may be in use by another app or restricted"))
     }
 
     private func togglePause() {

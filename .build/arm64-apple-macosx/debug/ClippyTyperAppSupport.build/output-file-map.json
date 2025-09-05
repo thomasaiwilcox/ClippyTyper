@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/master.swiftdeps"
+  },
+  "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperAppSupport/HotkeyManager.swift": {
+    "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.d",
+    "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.swift.o",
+    "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.swiftdeps",
+    "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.dia"
+  }
+}

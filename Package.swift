@@ -8,17 +8,26 @@ let package = Package(
     ],
     products: [
         .library(name: "ClippyTyperCore", targets: ["ClippyTyperCore"]),
+        .library(name: "ClippyTyperAppSupport", targets: ["ClippyTyperAppSupport"]),
         .library(name: "ClippyTyperPreferences", targets: ["ClippyTyperPreferences"]),
         .executable(name: "ClippyTyperApp", targets: ["ClippyTyperApp"])
     ],
     targets: [
         .target(name: "ClippyTyperCore"),
+        .target(
+            name: "ClippyTyperAppSupport",
+            linkerSettings: [
+                .linkedFramework("AppKit"),
+                .linkedFramework("Carbon")
+            ]
+        ),
         .target(name: "ClippyTyperPreferences", path: "ClippyTyper/Preferences"),
         .executableTarget(
             name: "ClippyTyperApp",
             dependencies: [
                 "ClippyTyperCore",
-                "ClippyTyperPreferences"
+                "ClippyTyperPreferences",
+                "ClippyTyperAppSupport"
             ],
             linkerSettings: [
                 .linkedFramework("AppKit"),
@@ -26,6 +35,7 @@ let package = Package(
                 .linkedFramework("Carbon")
             ]
         ),
-        .testTarget(name: "ClippyTyperCoreTests", dependencies: ["ClippyTyperCore"])
+        .testTarget(name: "ClippyTyperCoreTests", dependencies: ["ClippyTyperCore"]),
+        .testTarget(name: "ClippyTyperAppSupportTests", dependencies: ["ClippyTyperAppSupport"]) 
     ]
 )

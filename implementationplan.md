@@ -34,11 +34,14 @@ Deliver a macOS Sonoma-focused menu bar utility that types plain-text clipboard 
 - [ ] Integration tests/harness for end-to-end typing (optional) [PR: #___]
 - [ ] Unit tests: multiline, emoji/special chars, >10k chars, cps accuracy [PR: #___]
 - [x] HotkeyManager: global shortcut registration, default from prefs [PR: #___] [Commit: ___] (2025-09-05)
-- [ ] Hotkey conflict surfacing + Preferences binding [PR: #___]
+- [x] Hotkey conflict surfacing + Preferences binding (status label + notification) [PR: #___] [Commit: ___] (2025-09-05)
+- [x] HID-level start hotkey detection via event tap (requires Input Monitoring) [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Preferences UI: typing speed + hotkey (live apply); store launch-at-login [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Preferences: emergency cancel toggle + double-press window [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Instant paste fallback toggle + Cmd+V injection on failure [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Launch at login integration (LaunchAgent while on SPM; migrate to SMAppService with helper when bundling) [PR: #___] [Commit: ___] (2025-09-05)
 - [ ] UI tests: shortcut triggers typing; pause/cancel when implemented [PR: #___]
+- [x] Parsing tests: HotkeyManager parse mappings (function keys, punctuation) [PR: #___] [Commit: ___] (2025-09-05)
 - [x] MenuBarController: Pause/Cancel actions [PR: #___] [Commit: ___] (2025-09-05)
 - [ ] Permissions onboarding flow (guided UI) [PR: #___]
 - [ ] Instant paste fallback (optional) [PR: #___]

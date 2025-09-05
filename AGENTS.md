@@ -18,8 +18,9 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Tests (direct): `xcodebuild -scheme ClippyTyper -destination 'platform=macOS' test`.
 - Core library (SwiftPM): `swift build` and `swift test` for `ClippyTyperCore`.
 - Run skeleton app (SwiftPM): `swift run ClippyTyperApp` (Status bar shows "Clippy"). Uses `CGEvent` to emit keystrokes; requires Accessibility permission.
- - Preferences: open from the menu to change typing speed and global hotkey; updates apply immediately and hotkey re-registers live. Toggle emergency cancel and adjust double‑press window. Launch at login uses a user LaunchAgent during SPM development; a bundled login helper can be added for releases.
- - Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+backspace`).
+- Preferences: open from the menu to change typing speed and global hotkey; updates apply immediately and hotkey re-registers live. Toggle emergency cancel and adjust double‑press window. Launch at login uses a user LaunchAgent during SPM development; a bundled login helper can be added for releases.
+ - Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+cmd+esc`).
+ - Hotkeys: parser supports letters, digits, punctuation, arrows, function keys, and named keys (e.g., `cmd+shift+f12`). Preferences show status if registration fails (likely conflict).
 
 ## Coding Style & Naming Conventions
 - Swift 5+, Swift API Design Guidelines; 4-space indent; ~120 col width.
@@ -52,7 +53,15 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 
 ## Security, Permissions & Performance
 - Accessibility permission required: System Settings → Privacy & Security → Accessibility; add the built app.
+- Input Monitoring: enabling emergency cancel also enables HID-level hotkey detection for starting; grant Input Monitoring to improve reliability when ClippyTyper is not frontmost.
+ - When running via `swift run`, macOS may attribute Input Monitoring to your terminal (Terminal/iTerm). Grant Input Monitoring to that terminal app to allow the HID listener to function.
 - No network access; do not store clipboard contents beyond the session.
 - Reset perms during dev: `tccutil reset Accessibility <bundle-id>`.
 - Performance: keep idle CPU/memory negligible; ensure reliable typing at configured speed.
  - Optional: Reliable cancel uses a keyboard event tap (double-press Esc or ctrl+opt+cmd+Esc). macOS may prompt for Input Monitoring permission if enabled.
+
+## VM/Citrix Notes
+- Some full-screen apps (VMs, Citrix) can capture the keyboard before macOS sees it. In those cases, no app can register a global hotkey. Mitigations:
+  - Choose a host-reserved combo (e.g., `cmd+shift+F16` or F16–F19) and configure your VM/Citrix to pass it to macOS.
+  - In VM settings, disable “Capture macOS shortcuts” for your chosen combo, or map a “host key” that forwards to macOS.
+  - Keep the menu bar visible and use the Clippy icon when hotkeys are blocked.

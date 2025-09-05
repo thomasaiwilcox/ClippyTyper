@@ -2,46 +2,66 @@ import Foundation
 import AppKit
 import Carbon
 
-final class HotkeyManager {
-    typealias Callback = () -> Void
+public final class HotkeyManager {
+    public typealias Callback = () -> Void
 
     private var hotKeyRef: EventHotKeyRef?
     private var eventHandler: EventHandlerRef?
+    private var handlerUPP: EventHandlerUPP?
     private var callback: Callback?
+    private var registeredID: EventHotKeyID?
+    private static var nextID: UInt32 = 1
+
+    public init() {}
 
     deinit { unregister() }
 
-    func register(hotkeyString: String, callback: @escaping Callback) {
+    @discardableResult
+    public func register(hotkeyString: String, callback: @escaping Callback) -> Bool {
         unregister()
         self.callback = callback
 
         guard let parsed = Self.parse(hotkeyString: hotkeyString) else {
             NSLog("Hotkey parse failed for string: \(hotkeyString)")
-            return
+            return false
         }
 
-        let hotKeyID = EventHotKeyID(signature: OSType(UInt32(truncatingIfNeeded: 0x434C5054)), id: UInt32(1)) // 'CLPT'
-        let status = RegisterEventHotKey(parsed.keyCode, parsed.modifiers, hotKeyID, GetEventDispatcherTarget(), 0, &hotKeyRef)
+        var myID = EventHotKeyID(signature: OSType(UInt32(truncatingIfNeeded: 0x434C5054)), id: Self.nextAvailableID()) // 'CLPT'
+        let status = RegisterEventHotKey(parsed.keyCode, parsed.modifiers, myID, GetEventDispatcherTarget(), 0, &hotKeyRef)
         if status != noErr {
             NSLog("RegisterEventHotKey failed: \(status)")
-            return
+            return false
         }
+        self.registeredID = myID
 
         var eventSpec = EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed))
-        let handler: EventHandlerUPP = { (_, _, userData) -> OSStatus in
+        let handler: EventHandlerUPP = { (callRef, eventRef, userData) -> OSStatus in
             guard let userData else { return OSStatus(eventNotHandledErr) }
             let manager = Unmanaged<HotkeyManager>.fromOpaque(userData).takeUnretainedValue()
-            manager.callback?()
-            return noErr
+            // Extract the hotkey ID from the event and compare
+            var eventHotKeyID = EventHotKeyID()
+            let status = GetEventParameter(eventRef, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &eventHotKeyID)
+            if status != noErr {
+                return OSStatus(eventNotHandledErr)
+            }
+            if let reg = manager.registeredID, reg.id == eventHotKeyID.id, reg.signature == eventHotKeyID.signature {
+                manager.callback?()
+                return noErr
+            } else {
+                return OSStatus(eventNotHandledErr)
+            }
         }
+        self.handlerUPP = handler // keep alive
         let userData = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
         let installStatus = InstallEventHandler(GetEventDispatcherTarget(), handler, 1, &eventSpec, userData, &eventHandler)
         if installStatus != noErr {
             NSLog("InstallEventHandler failed: \(installStatus)")
+            return false
         }
+        return true
     }
 
-    func unregister() {
+    public func unregister() {
         if let hk = hotKeyRef {
             UnregisterEventHotKey(hk)
             hotKeyRef = nil
@@ -50,15 +70,17 @@ final class HotkeyManager {
             RemoveEventHandler(eh)
             eventHandler = nil
         }
+        handlerUPP = nil
         callback = nil
+        registeredID = nil
     }
 
-    struct ParsedHotkey {
-        let keyCode: UInt32
-        let modifiers: UInt32
+    public struct ParsedHotkey {
+        public let keyCode: UInt32
+        public let modifiers: UInt32
     }
 
-    static func parse(hotkeyString: String) -> ParsedHotkey? {
+    public static func parse(hotkeyString: String) -> ParsedHotkey? {
         let parts = hotkeyString.lowercased().split(separator: "+").map { String($0) }
         guard !parts.isEmpty else { return nil }
 
@@ -92,7 +114,13 @@ final class HotkeyManager {
                 "y": kVK_ANSI_Y, "z": kVK_ANSI_Z,
                 "0": kVK_ANSI_0, "1": kVK_ANSI_1, "2": kVK_ANSI_2, "3": kVK_ANSI_3,
                 "4": kVK_ANSI_4, "5": kVK_ANSI_5, "6": kVK_ANSI_6, "7": kVK_ANSI_7,
-                "8": kVK_ANSI_8, "9": kVK_ANSI_9
+                "8": kVK_ANSI_8, "9": kVK_ANSI_9,
+                "-": kVK_ANSI_Minus, "=": kVK_ANSI_Equal,
+                "[": kVK_ANSI_LeftBracket, "]": kVK_ANSI_RightBracket,
+                "\\": kVK_ANSI_Backslash,
+                ";": kVK_ANSI_Semicolon, "'": kVK_ANSI_Quote,
+                ",": kVK_ANSI_Comma, ".": kVK_ANSI_Period, "/": kVK_ANSI_Slash,
+                "`": kVK_ANSI_Grave
             ]
             return map[ch]
         }
@@ -100,8 +128,36 @@ final class HotkeyManager {
         switch key {
         case "esc", "escape": return kVK_Escape
         case "backspace", "delete": return kVK_Delete
+        case "forwarddelete", "del": return kVK_ForwardDelete
+        case "return", "enter": return kVK_Return
+        case "tab": return kVK_Tab
+        case "space", "spacebar": return kVK_Space
+        case "left": return kVK_LeftArrow
+        case "right": return kVK_RightArrow
+        case "up": return kVK_UpArrow
+        case "down": return kVK_DownArrow
+        case "home": return kVK_Home
+        case "end": return kVK_End
+        case "pageup": return kVK_PageUp
+        case "pagedown": return kVK_PageDown
+        case let f where f.hasPrefix("f"):
+            if let n = Int(f.dropFirst()), (1...19).contains(n) {
+                return kVK_F1 + (n - 1)
+            } else {
+                break
+            }
         default: break
         }
         return nil
+    }
+}
+
+extension HotkeyManager {
+    private static func nextAvailableID() -> UInt32 {
+        // Simple increment with wraparound safeguard
+        let id = nextID
+        nextID &+= 1
+        if nextID == 0 { nextID = 1 }
+        return id
     }
 }

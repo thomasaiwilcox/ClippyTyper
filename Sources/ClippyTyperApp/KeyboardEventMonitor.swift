@@ -1,6 +1,7 @@
 import Foundation
 import ApplicationServices
 import Carbon
+import ClippyTyperAppSupport
 
 final class KeyboardEventMonitor {
     private var tap: CFMachPort?
@@ -8,9 +9,12 @@ final class KeyboardEventMonitor {
 
     var onPauseToggle: (() -> Void)?
     var onCancel: (() -> Void)?
+    var onStart: (() -> Void)?
 
     private var lastEscapeTime: CFAbsoluteTime = 0
     private var doubleTapWindow: CFAbsoluteTime
+    private var startKeyCode: CGKeyCode?
+    private var startModifiers: CGEventFlags?
 
     init(doubleTapWindow: CFAbsoluteTime) {
         self.doubleTapWindow = doubleTapWindow
@@ -43,12 +47,24 @@ final class KeyboardEventMonitor {
                 return Unmanaged.passUnretained(event)
             }
 
+            // Start typing if configured hotkey is pressed
+            if let sk = monitor.startKeyCode, let sm = monitor.startModifiers {
+                // CGEvent flags include device-dependent bits; compare core masks only
+                let required: CGEventFlags = sm
+                let hasAll = flags.contains(required)
+                if hasAll && keycode == Int64(sk) {
+                    monitor.onStart?()
+                    return Unmanaged.passUnretained(event)
+                }
+            }
+
             return Unmanaged.passUnretained(event)
         }
 
         let refcon = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
-        guard let tap = CGEvent.tapCreate(tap: .cgSessionEventTap, place: .headInsertEventTap, options: .defaultTap, eventsOfInterest: CGEventMask(mask), callback: callback, userInfo: refcon) else {
-            NSLog("KeyboardEventMonitor: failed to create event tap (Input Monitoring may be required)")
+        // Use HID-level listenOnly to improve chances in background; requires Input Monitoring
+        guard let tap = CGEvent.tapCreate(tap: .cghidEventTap, place: .headInsertEventTap, options: .listenOnly, eventsOfInterest: CGEventMask(mask), callback: callback, userInfo: refcon) else {
+            NSLog("KeyboardEventMonitor: failed to create HID event tap (Input Monitoring may be required)")
             return
         }
         self.tap = tap
@@ -71,6 +87,21 @@ final class KeyboardEventMonitor {
     }
 
     func setDoubleTapWindow(_ seconds: CFAbsoluteTime) { self.doubleTapWindow = max(0.1, seconds) }
+
+    func setStartHotkey(from hotkeyString: String) {
+        guard let parsed = HotkeyManager.parse(hotkeyString: hotkeyString) else {
+            startKeyCode = nil
+            startModifiers = nil
+            return
+        }
+        startKeyCode = CGKeyCode(parsed.keyCode)
+        var flags: CGEventFlags = []
+        if parsed.modifiers & UInt32(cmdKey) != 0 { flags.insert(.maskCommand) }
+        if parsed.modifiers & UInt32(optionKey) != 0 { flags.insert(.maskAlternate) }
+        if parsed.modifiers & UInt32(controlKey) != 0 { flags.insert(.maskControl) }
+        if parsed.modifiers & UInt32(shiftKey) != 0 { flags.insert(.maskShift) }
+        startModifiers = flags
+    }
 
     deinit { stop() }
 }

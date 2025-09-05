@@ -36,7 +36,7 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HotkeyManager.swift"
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift"
         },
         {
           "kind" : "file",
@@ -53,6 +53,10 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/Notifications.swift"
         },
         {
           "kind" : "file",
@@ -80,6 +84,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperAppSupport.swiftmodule"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/sources"
         }
       ],
@@ -89,11 +97,12 @@
       "objects" : [
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AXKeystrokeSender.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AppDelegate.swift.o",
-        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.swift.o",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyboardEventMonitor.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/LaunchAtLoginManager.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MainApp.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MenuBarController.swift.o",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/TypingSession.swift.o"
@@ -154,7 +163,7 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.swift.o"
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.swift.o"
         },
         {
           "kind" : "file",
@@ -171,6 +180,10 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MenuBarController.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.swift.o"
         },
         {
           "kind" : "file",
@@ -193,16 +206,192 @@
       "sources" : [
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AXKeystrokeSender.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AppDelegate.swift",
-        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HotkeyManager.swift",
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MainApp.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift",
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/Notifications.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift"
       ],
       "tempsPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.ClippyTyperAppSupport-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/sources",
+      "importPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperAppSupport/HotkeyManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "ClippyTyperAppSupport",
+      "moduleOutputPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperAppSupport.swiftmodule",
+      "objects" : [
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/include/ClippyTyperAppSupport-Swift.h",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-I",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-L",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-plugin-path",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "clippytyper"
+      ],
+      "outputFileMapPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperAppSupport.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperAppSupport/HotkeyManager.swift"
+      ],
+      "tempsPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.ClippyTyperAppSupportTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build/sources",
+      "importPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Tests/ClippyTyperAppSupportTests/HotkeyManagerParseTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperAppSupport.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "ClippyTyperAppSupportTests",
+      "moduleOutputPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperAppSupportTests.swiftmodule",
+      "objects" : [
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build/HotkeyManagerParseTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-I",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-L",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-plugin-path",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "clippytyper"
+      ],
+      "outputFileMapPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build/HotkeyManagerParseTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperAppSupportTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/tom/Documents/Projects/ClippyTyper/Tests/ClippyTyperAppSupportTests/HotkeyManagerParseTests.swift"
+      ],
+      "tempsPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build",
       "wholeModuleOptimization" : false
     },
     "C.ClippyTyperCore-arm64-apple-macosx26.0-debug.module" : {
@@ -337,6 +526,10 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperCoreTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperAppSupportTests.swiftmodule"
         },
         {
           "kind" : "file",
@@ -610,11 +803,12 @@
       "-c",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AXKeystrokeSender.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AppDelegate.swift",
-      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HotkeyManager.swift",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MainApp.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/Notifications.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift",
@@ -640,6 +834,115 @@
       "-entry-point-function-name",
       "-Xfrontend",
       "ClippyTyperApp_main",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-I",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-L",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-plugin-path",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "clippytyper",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ],
+    "ClippyTyperAppSupport" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "ClippyTyperAppSupport",
+      "-package-name",
+      "clippytyper",
+      "-c",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperAppSupport/HotkeyManager.swift",
+      "-I",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/include/ClippyTyperAppSupport-Swift.h",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-I",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-L",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-plugin-path",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "clippytyper",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ],
+    "ClippyTyperAppSupportTests" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "ClippyTyperAppSupportTests",
+      "-package-name",
+      "clippytyper",
+      "-c",
+      "/Users/tom/Documents/Projects/ClippyTyper/Tests/ClippyTyperAppSupportTests/HotkeyManagerParseTests.swift",
+      "-I",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
       "-color-diagnostics",
       "-swift-version",
       "5",
@@ -891,13 +1194,22 @@
   },
   "targetDependencyMap" : {
     "ClippyTyperApp" : [
+      "ClippyTyperAppSupport",
       "ClippyTyperPreferences",
       "ClippyTyperCore"
+    ],
+    "ClippyTyperAppSupport" : [
+
+    ],
+    "ClippyTyperAppSupportTests" : [
+      "ClippyTyperAppSupport"
     ],
     "ClippyTyperCore" : [
 
     ],
     "ClippyTyperCorePackageTests" : [
+      "ClippyTyperAppSupportTests",
+      "ClippyTyperAppSupport",
       "ClippyTyperCoreTests",
       "ClippyTyperCore"
     ],
@@ -961,7 +1273,7 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HotkeyManager.swift"
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift"
         },
         {
           "kind" : "file",
@@ -978,6 +1290,10 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/Notifications.swift"
         },
         {
           "kind" : "file",
@@ -1011,7 +1327,7 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.swift.o"
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.swift.o"
         },
         {
           "kind" : "file",
@@ -1031,6 +1347,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swift.o"
         },
         {
@@ -1040,6 +1360,10 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/TypingSession.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.swift.o"
         },
         {
           "kind" : "file",
@@ -1067,6 +1391,34 @@
         }
       ],
       "outputFilePath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.product/Objects.LinkFileList"
+    },
+    "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperAppSupport/HotkeyManager.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/sources"
+    },
+    "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Tests/ClippyTyperAppSupportTests/HotkeyManagerParseTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build/sources"
     },
     "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperCore.build/sources" : {
       "alwaysOutOfDate" : false,
@@ -1114,6 +1466,14 @@
         {
           "kind" : "virtual",
           "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupport.build/HotkeyManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperAppSupportTests.build/HotkeyManagerParseTests.swift.o"
         },
         {
           "kind" : "file",
