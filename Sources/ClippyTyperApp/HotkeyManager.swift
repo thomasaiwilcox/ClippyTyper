@@ -96,7 +96,12 @@ final class HotkeyManager {
             ]
             return map[ch]
         }
-        // Named keys can be added as needed (e.g., F-keys)
+        // Named keys
+        switch key {
+        case "esc", "escape": return kVK_Escape
+        case "backspace", "delete": return kVK_Delete
+        default: break
+        }
         return nil
     }
 }

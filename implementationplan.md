@@ -7,11 +7,11 @@ Deliver a macOS Sonoma-focused menu bar utility that types plain-text clipboard 
 
 ## Milestones
 - Foundation & Tooling — Completed (2025-09-05)
-- Core Typing Engine — Planned
-- Hotkey & Routing — Planned
-- Menu Bar UI — Planned
-- Permissions & Onboarding — Planned
-- Preferences UI — Planned
+- Core Typing Engine — In progress
+- Hotkey & Routing — Completed (basic)
+- Menu Bar UI — In progress (Start/Preferences/ Quit; Pause/Cancel pending)
+- Permissions & Onboarding — In progress (check + prompt)
+- Preferences UI — Completed (speed + hotkey)
 - Advanced Features (pause/cancel, instant paste, per-app exceptions) — Planned
 - Performance & QA — Planned
 - Packaging & Release — Planned
@@ -21,27 +21,28 @@ Deliver a macOS Sonoma-focused menu bar utility that types plain-text clipboard 
 - Optionally add URLs: `https://github.com/<org>/<repo>/pull/123`.
 - Example: `- [x] TypingEngine MVP [PR: #12] [Commit: 1a2b3c4] (2025-09-10)`.
 
-## Task Tracker
-- [x] Contributor guide (AGENTS.md) aligned with PRD [PR: #___] [Commit: ___]
-- [x] Makefile (`make build/test/lint/help`) [PR: #___] [Commit: ___]
-- [x] Lint script (`Scripts/lint.sh`) [PR: #___] [Commit: ___]
-- [x] Preferences keys/defaults (`ClippyTyper/Preferences/*`) [PR: #___] [Commit: ___]
-- [x] Core logic package (SwiftPM) scaffolding: `ClippyTyperCore` [PR: #___] [Commit: ___]
-- [x] Unit tests for planning/tokenization and sending order [PR: #___] [Commit: ___]
-- [x] App skeleton and wiring (`AppDelegate`, `MenuBarController`, permissions check, pasteboard read) [PR: #___] [Commit: ___]
-- [x] Keystroke sender (CGEvent-based) with AX permission check [PR: #___] [Commit: ___]
-- [x] TypingEngine: cps planning and retry/backoff on send failures [PR: #___] [Commit: ___]
-- [ ] TypingEngine: pasteboard read + integration tests [PR: #___]
+- [x] Contributor guide (AGENTS.md) aligned with PRD [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Makefile (`make build/test/lint/help`) [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Lint script (`Scripts/lint.sh`) [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Preferences keys/defaults (`ClippyTyper/Preferences/*`) [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Core logic package (SwiftPM) scaffolding: `ClippyTyperCore` [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Unit tests for planning/tokenization and sending order [PR: #___] [Commit: ___] (2025-09-05)
+- [x] App skeleton and wiring (`AppDelegate`, `MenuBarController`, permissions check, pasteboard read) [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Keystroke sender (CGEvent-based) with AX permission check [PR: #___] [Commit: ___] (2025-09-05)
+- [x] TypingEngine: cps planning and retry/backoff on send failures [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Pasteboard read on invoke (AppDelegate) [PR: #___] [Commit: ___]
+- [ ] Integration tests/harness for end-to-end typing (optional) [PR: #___]
 - [ ] Unit tests: multiline, emoji/special chars, >10k chars, cps accuracy [PR: #___]
-- [x] HotkeyManager: global shortcut registration, default from prefs [PR: #___] [Commit: ___]
+- [x] HotkeyManager: global shortcut registration, default from prefs [PR: #___] [Commit: ___] (2025-09-05)
 - [ ] Hotkey conflict surfacing + Preferences binding [PR: #___]
+- [x] Preferences UI: typing speed + hotkey (live apply); store launch-at-login [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Preferences: emergency cancel toggle + double-press window [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Launch at login integration (LaunchAgent while on SPM; migrate to SMAppService with helper when bundling) [PR: #___] [Commit: ___] (2025-09-05)
 - [ ] UI tests: shortcut triggers typing; pause/cancel when implemented [PR: #___]
-- [ ] MenuBarController: `NSStatusItem` with Start/Pause/Cancel/Preferences [PR: #___]
-- [ ] PermissionsManager: Accessibility permission check + guided enablement [PR: #___]
-- [ ] Preferences UI: typing speed, hotkey, launch at login [PR: #___]
-- [ ] Launch at login integration [PR: #___]
+- [x] MenuBarController: Pause/Cancel actions [PR: #___] [Commit: ___] (2025-09-05)
+- [ ] Permissions onboarding flow (guided UI) [PR: #___]
 - [ ] Instant paste fallback (optional) [PR: #___]
-- [ ] Pause/resume and cancel shortcuts [PR: #___]
+- [x] Pause/resume and cancel shortcuts [PR: #___] [Commit: ___] (2025-09-05)
 - [ ] Per-app exceptions by bundle id (optional) [PR: #___]
 - [ ] Performance validation: idle CPU/mem, large text reliability [PR: #___]
 - [ ] Packaging: entitlements, codesign, notarization (as applicable) [PR: #___]
@@ -54,3 +55,4 @@ Deliver a macOS Sonoma-focused menu bar utility that types plain-text clipboard 
 
 ## Change Log
 - 2025-09-05: Initialized plan; added AGENTS.md, Makefile, lint script, and Preferences defaults/keys. [PR: #___]
+- 2025-09-05: Added core SPM lib + tests; menu bar skeleton; AX/CGEvent keystroke sender; global hotkey; Preferences UI; pasteboard read; retry/backoff in TypingEngine. [PR: #___]

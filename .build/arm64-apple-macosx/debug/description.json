@@ -40,6 +40,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MainApp.swift"
         },
         {
@@ -49,6 +57,14 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift"
         },
         {
           "kind" : "file",
@@ -74,9 +90,13 @@
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AXKeystrokeSender.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AppDelegate.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HotkeyManager.swift.o",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyboardEventMonitor.swift.o",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/LaunchAtLoginManager.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MainApp.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MenuBarController.swift.o",
-        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swift.o"
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swift.o",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.swift.o",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/TypingSession.swift.o"
       ],
       "otherArguments" : [
         "-target",
@@ -138,6 +158,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyboardEventMonitor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/LaunchAtLoginManager.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MainApp.swift.o"
         },
         {
@@ -150,6 +178,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/TypingSession.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/ClippyTyperApp.swiftmodule"
         }
       ],
@@ -158,9 +194,13 @@
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AXKeystrokeSender.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AppDelegate.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HotkeyManager.swift",
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift",
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MainApp.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift",
-        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift"
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift",
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift",
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift"
       ],
       "tempsPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build",
       "wholeModuleOptimization" : false
@@ -571,9 +611,13 @@
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AXKeystrokeSender.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AppDelegate.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HotkeyManager.swift",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MainApp.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift",
       "-I",
       "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules",
       "-target",
@@ -921,6 +965,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MainApp.swift"
         },
         {
@@ -930,6 +982,14 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift"
         }
       ],
       "outputFilePath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/sources"
@@ -955,6 +1015,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyboardEventMonitor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/LaunchAtLoginManager.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MainApp.swift.o"
         },
         {
@@ -964,6 +1032,14 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/TypingSession.swift.o"
         },
         {
           "kind" : "file",

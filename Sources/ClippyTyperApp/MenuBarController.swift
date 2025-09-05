@@ -4,8 +4,12 @@ final class MenuBarController: NSObject {
     private let statusItem: NSStatusItem
 
     var onStartTyping: (() -> Void)?
+    var onPauseResume: (() -> Void)?
+    var onCancel: (() -> Void)?
     var onOpenPreferences: (() -> Void)?
     var onQuit: (() -> Void)?
+
+    private var pauseItem: NSMenuItem!
 
     override init() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -25,6 +29,16 @@ final class MenuBarController: NSObject {
 
         menu.addItem(NSMenuItem.separator())
 
+        pauseItem = NSMenuItem(title: "Pause Typing", action: #selector(pauseResume), keyEquivalent: "p")
+        pauseItem.target = self
+        menu.addItem(pauseItem)
+
+        let cancelItem = NSMenuItem(title: "Cancel Typing", action: #selector(cancelTyping), keyEquivalent: "c")
+        cancelItem.target = self
+        menu.addItem(cancelItem)
+
+        menu.addItem(NSMenuItem.separator())
+
         let prefsItem = NSMenuItem(title: "Preferences…", action: #selector(openPreferences), keyEquivalent: ",")
         prefsItem.target = self
         menu.addItem(prefsItem)
@@ -38,6 +52,12 @@ final class MenuBarController: NSObject {
     }
 
     @objc private func startTyping() { onStartTyping?() }
+    @objc private func pauseResume() { onPauseResume?() }
+    @objc private func cancelTyping() { onCancel?() }
     @objc private func openPreferences() { onOpenPreferences?() }
     @objc private func quitApp() { onQuit?() }
+
+    func setPaused(_ paused: Bool) {
+        pauseItem.title = paused ? "Resume Typing" : "Pause Typing"
+    }
 }

@@ -18,6 +18,8 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Tests (direct): `xcodebuild -scheme ClippyTyper -destination 'platform=macOS' test`.
 - Core library (SwiftPM): `swift build` and `swift test` for `ClippyTyperCore`.
 - Run skeleton app (SwiftPM): `swift run ClippyTyperApp` (Status bar shows "Clippy"). Uses `CGEvent` to emit keystrokes; requires Accessibility permission.
+ - Preferences: open from the menu to change typing speed and global hotkey; updates apply immediately and hotkey re-registers live. Toggle emergency cancel and adjust double‑press window. Launch at login uses a user LaunchAgent during SPM development; a bundled login helper can be added for releases.
+ - Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+backspace`).
 
 ## Coding Style & Naming Conventions
 - Swift 5+, Swift API Design Guidelines; 4-space indent; ~120 col width.
@@ -53,3 +55,4 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - No network access; do not store clipboard contents beyond the session.
 - Reset perms during dev: `tccutil reset Accessibility <bundle-id>`.
 - Performance: keep idle CPU/memory negligible; ensure reliable typing at configured speed.
+ - Optional: Reliable cancel uses a keyboard event tap (double-press Esc or ctrl+opt+cmd+Esc). macOS may prompt for Input Monitoring permission if enabled.
