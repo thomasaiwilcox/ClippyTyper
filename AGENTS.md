@@ -19,8 +19,9 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Core library (SwiftPM): `swift build` and `swift test` for `ClippyTyperCore`.
 - Run skeleton app (SwiftPM): `swift run ClippyTyperApp` (Status bar shows "Clippy"). Uses `CGEvent` to emit keystrokes; requires Accessibility permission.
 - Preferences: open from the menu to change typing speed and global hotkey; updates apply immediately and hotkey re-registers live. Toggle emergency cancel and adjust double‑press window. Launch at login uses a user LaunchAgent during SPM development; a bundled login helper can be added for releases.
- - Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+cmd+esc`).
- - Hotkeys: parser supports letters, digits, punctuation, arrows, function keys, and named keys (e.g., `cmd+shift+f12`). Preferences show status if registration fails (likely conflict).
+- Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+cmd+esc`).
+- Hotkeys: parser supports letters, digits, punctuation, arrows, function keys, and named keys (e.g., `cmd+shift+f12`). Preferences show status if registration fails (likely conflict).
+ - CLI control: `swift run clippyctl start|pause|cancel` posts a distributed notification to the running app (useful for Stream Deck/Alfred). For a URL scheme, add CFBundleURLTypes when migrating to an Xcode app bundle.
 
 ## Coding Style & Naming Conventions
 - Swift 5+, Swift API Design Guidelines; 4-space indent; ~120 col width.
@@ -65,3 +66,11 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
   - Choose a host-reserved combo (e.g., `cmd+shift+F16` or F16–F19) and configure your VM/Citrix to pass it to macOS.
   - In VM settings, disable “Capture macOS shortcuts” for your chosen combo, or map a “host key” that forwards to macOS.
   - Keep the menu bar visible and use the Clippy icon when hotkeys are blocked.
+  - Alternatively, trigger via `clippyctl start` from the host.
+- Xcode project: optional via XcodeGen.
+  - Easiest: `make xcode` (runs XcodeGen and opens the project).
+  - Or manually: `cd xcode && xcodegen generate && open ClippyTyper.xcodeproj`.
+  - Build via Xcode: `make xcode-build` (uses scheme `ClippyTyper`; override with `XCODE_SCHEME=…`).
+  - Test via Xcode: `make xcode-test` (runs the scheme’s test action; UI tests require enabling automation permissions).
+  - The app target registers the URL scheme `clippytyper://<action>` (actions: `start`, `pause`, `cancel`).
+  - Example: `open 'clippytyper://start'` to trigger from the host.

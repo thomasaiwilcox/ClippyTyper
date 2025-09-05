@@ -36,6 +36,10 @@ Deliver a macOS Sonoma-focused menu bar utility that types plain-text clipboard 
 - [x] HotkeyManager: global shortcut registration, default from prefs [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Hotkey conflict surfacing + Preferences binding (status label + notification) [PR: #___] [Commit: ___] (2025-09-05)
 - [x] HID-level start hotkey detection via event tap (requires Input Monitoring) [PR: #___] [Commit: ___] (2025-09-05)
+- [x] Help panel with VM/Citrix guidance [PR: #___] [Commit: ___] (2025-09-05)
+- [x] CLI control tool (`clippyctl start|pause|cancel`) via Distributed Notifications [PR: #___] [Commit: ___] (2025-09-05)
+- [ ] URL scheme (`clippytyper://start`) when migrating to Xcode app bundle (add CFBundleURLTypes) [PR: #___]
+ - [x] XcodeGen project with app target + URL scheme and UI test bundle [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Preferences UI: typing speed + hotkey (live apply); store launch-at-login [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Preferences: emergency cancel toggle + double-press window [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Instant paste fallback toggle + Cmd+V injection on failure [PR: #___] [Commit: ___] (2025-09-05)

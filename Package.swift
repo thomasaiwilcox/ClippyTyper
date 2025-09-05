@@ -10,7 +10,8 @@ let package = Package(
         .library(name: "ClippyTyperCore", targets: ["ClippyTyperCore"]),
         .library(name: "ClippyTyperAppSupport", targets: ["ClippyTyperAppSupport"]),
         .library(name: "ClippyTyperPreferences", targets: ["ClippyTyperPreferences"]),
-        .executable(name: "ClippyTyperApp", targets: ["ClippyTyperApp"])
+        .executable(name: "ClippyTyperApp", targets: ["ClippyTyperApp"]),
+        .executable(name: "clippyctl", targets: ["clippyctl"])
     ],
     targets: [
         .target(name: "ClippyTyperCore"),
@@ -35,6 +36,7 @@ let package = Package(
                 .linkedFramework("Carbon")
             ]
         ),
+        .executableTarget(name: "clippyctl"),
         .testTarget(name: "ClippyTyperCoreTests", dependencies: ["ClippyTyperCore"]),
         .testTarget(name: "ClippyTyperAppSupportTests", dependencies: ["ClippyTyperAppSupport"]) 
     ]

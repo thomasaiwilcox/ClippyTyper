@@ -7,6 +7,7 @@ final class MenuBarController: NSObject {
     var onPauseResume: (() -> Void)?
     var onCancel: (() -> Void)?
     var onOpenPreferences: (() -> Void)?
+    var onOpenHelp: (() -> Void)?
     var onQuit: (() -> Void)?
 
     private var pauseItem: NSMenuItem!
@@ -43,6 +44,11 @@ final class MenuBarController: NSObject {
         prefsItem.target = self
         menu.addItem(prefsItem)
 
+        let helpItem = NSMenuItem(title: "Help", action: #selector(openHelp), keyEquivalent: "?")
+        helpItem.keyEquivalentModifierMask = [.command]
+        helpItem.target = self
+        menu.addItem(helpItem)
+
         menu.addItem(NSMenuItem.separator())
 
         let quitItem = NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q")
@@ -55,6 +61,7 @@ final class MenuBarController: NSObject {
     @objc private func pauseResume() { onPauseResume?() }
     @objc private func cancelTyping() { onCancel?() }
     @objc private func openPreferences() { onOpenPreferences?() }
+    @objc private func openHelp() { onOpenHelp?() }
     @objc private func quitApp() { onQuit?() }
 
     func setPaused(_ paused: Bool) {

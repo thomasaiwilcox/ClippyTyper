@@ -36,6 +36,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HelpWindow.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift"
         },
         {
@@ -97,6 +101,7 @@
       "objects" : [
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AXKeystrokeSender.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AppDelegate.swift.o",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HelpWindow.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyboardEventMonitor.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/LaunchAtLoginManager.swift.o",
@@ -163,6 +168,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HelpWindow.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/KeyEventUtil.swift.o"
         },
         {
@@ -206,6 +215,7 @@
       "sources" : [
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AXKeystrokeSender.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AppDelegate.swift",
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HelpWindow.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift",
@@ -788,6 +798,92 @@
       ],
       "tempsPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build",
       "wholeModuleOptimization" : false
+    },
+    "C.clippyctl-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build/sources",
+      "importPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/clippyctl/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "clippyctl",
+      "moduleOutputPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/clippyctl.swiftmodule",
+      "objects" : [
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "clippyctl_main",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-I",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-L",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-plugin-path",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "clippytyper"
+      ],
+      "outputFileMapPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules/clippyctl.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/clippyctl/main.swift"
+      ],
+      "tempsPath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build",
+      "wholeModuleOptimization" : false
     }
   },
   "swiftFrontendCommands" : {
@@ -803,6 +899,7 @@
       "-c",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AXKeystrokeSender.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/AppDelegate.swift",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HelpWindow.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyboardEventMonitor.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/LaunchAtLoginManager.swift",
@@ -1190,6 +1287,61 @@
       "clippytyper",
       "-driver-use-frontend-path",
       "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ],
+    "clippyctl" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "clippyctl",
+      "-package-name",
+      "clippytyper",
+      "-c",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/clippyctl/main.swift",
+      "-I",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "clippyctl_main",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-I",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-L",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-plugin-path",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "clippytyper",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
     ]
   },
   "targetDependencyMap" : {
@@ -1217,6 +1369,9 @@
       "ClippyTyperCore"
     ],
     "ClippyTyperPreferences" : [
+
+    ],
+    "clippyctl" : [
 
     ]
   },
@@ -1273,6 +1428,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/HelpWindow.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/KeyEventUtil.swift"
         },
         {
@@ -1324,6 +1483,10 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/AppDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/HelpWindow.swift.o"
         },
         {
           "kind" : "file",
@@ -1533,6 +1696,48 @@
         }
       ],
       "outputFilePath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperPreferences.build/sources"
+    },
+    "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl-entitlement.plist"
+    },
+    "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/clippyctl/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build/sources"
+    },
+    "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/clippyctl.product/Objects.LinkFileList"
     },
     "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt" : {
       "alwaysOutOfDate" : true,
