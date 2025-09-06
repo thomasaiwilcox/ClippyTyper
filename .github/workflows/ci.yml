@@ -21,6 +21,11 @@ jobs:
       - name: Swift toolchain
         run: swift --version
 
+      - name: Ensure Xcode toolchain is active
+        run: |
+          echo "DEVELOPER_DIR=$(xcode-select -p)" >> $GITHUB_ENV
+          xcode-select -p
+
       - name: Cache SwiftPM dependencies (no build artifacts)
         uses: actions/cache@v4
         with:
@@ -35,10 +40,10 @@ jobs:
           rm -rf .build
 
       - name: Build (Debug)
-        run: swift build
+        run: xcrun swift build
 
       - name: Test
-        run: swift test --parallel
+        run: xcrun swift test --parallel
 
   lint:
     name: Lint (optional)
