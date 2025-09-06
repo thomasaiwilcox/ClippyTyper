@@ -125,11 +125,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let newSession = TypingSession(baseSender: baseSender)
         self.session = newSession
         menuBar.setPaused(false)
+        if progressHUD == nil { progressHUD = ProgressHUD() }
+        progressHUD?.show()
+        progressHUD?.update(progress: 0, paused: false)
         menuBar.setProgress(0)
         newSession.start(text: text, cps: speed, progress: { [weak self] frac in
-            DispatchQueue.main.async { self?.menuBar.setProgress(frac) }
+            DispatchQueue.main.async {
+                self?.menuBar.setProgress(frac)
+                self?.progressHUD?.update(progress: frac, paused: self?.session?.isPaused ?? false)
+            }
         }) { [weak self] result in
-            DispatchQueue.main.async { self?.menuBar.setProgress(nil) }
+            DispatchQueue.main.async {
+                self?.menuBar.setProgress(nil)
+                self?.progressHUD?.hide()
+            }
             if case .failure(let error) = result {
                 NSLog("Typing failed: \(error)")
                 if UserDefaults.standard.bool(forKey: PreferencesKeys.instantPasteFallback) {
@@ -209,10 +218,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         guard let session else { return }
         session.togglePause()
         menuBar.setPaused(session.isPaused)
+        progressHUD?.update(progress: nil, paused: session.isPaused)
     }
 
     private func cancelTyping() {
         session?.cancel()
         menuBar.setPaused(false)
+        progressHUD?.hide()
     }
 }

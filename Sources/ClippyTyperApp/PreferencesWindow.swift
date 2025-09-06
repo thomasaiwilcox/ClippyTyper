@@ -42,6 +42,12 @@ final class PreferencesViewController: NSViewController {
         let b = NSButton(checkboxWithTitle: "Launch at login", target: nil, action: nil)
         return b
     }()
+    private let loginStatusLabel: NSTextField = {
+        let tf = NSTextField(labelWithString: "")
+        tf.textColor = .secondaryLabelColor
+        tf.lineBreakMode = .byTruncatingTail
+        return tf
+    }()
 
     private let emergencyCancelCheckbox: NSButton = {
         let b = NSButton(checkboxWithTitle: "Enable emergency cancel (Esc×2 / ctrl+opt+cmd+Esc)", target: nil, action: nil)
@@ -89,6 +95,7 @@ final class PreferencesViewController: NSViewController {
         // Prefer actual system state (SMAppService when bundled; fallback to LaunchAgent)
         let sysEnabled = LoginItemManager.isEnabled()
         launchAtLoginCheckbox.state = sysEnabled ? .on : (defaults.bool(forKey: PreferencesKeys.launchAtLogin) ? .on : .off)
+        updateLoginStatusLabel(enabled: sysEnabled)
         emergencyCancelCheckbox.state = defaults.bool(forKey: PreferencesKeys.emergencyCancelEnabled) ? .on : .off
         let dpw = defaults.double(forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
         doublePressSlider.doubleValue = (dpw > 0 ? dpw : 0.4)
@@ -102,6 +109,7 @@ final class PreferencesViewController: NSViewController {
          emergencyCancelCheckbox,
          doublePressLabel, doublePressSlider, doublePressValueLabel,
          instantPasteFallbackCheckbox,
+         loginStatusLabel,
          exclusionsLabel, exclusionsScroll, excludeCurrentButton, removeSelectedButton, clearExclusionsButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
@@ -150,6 +158,10 @@ final class PreferencesViewController: NSViewController {
 
             instantPasteFallbackCheckbox.topAnchor.constraint(equalTo: doublePressSlider.bottomAnchor, constant: 16),
             instantPasteFallbackCheckbox.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+
+            loginStatusLabel.centerYAnchor.constraint(equalTo: launchAtLoginCheckbox.centerYAnchor),
+            loginStatusLabel.leadingAnchor.constraint(equalTo: launchAtLoginCheckbox.trailingAnchor, constant: 12),
+            loginStatusLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
 
             exclusionsLabel.topAnchor.constraint(equalTo: instantPasteFallbackCheckbox.bottomAnchor, constant: 16),
             exclusionsLabel.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
@@ -233,6 +245,7 @@ final class PreferencesViewController: NSViewController {
         do {
             try LoginItemManager.setEnabled(enabled)
             UserDefaults.standard.set(enabled, forKey: PreferencesKeys.launchAtLogin)
+            updateLoginStatusLabel(enabled: enabled)
             onLaunchAtLoginChanged?(enabled)
         } catch {
             let alert = NSAlert()
@@ -241,7 +254,10 @@ final class PreferencesViewController: NSViewController {
             alert.informativeText = String(describing: error)
             alert.addButton(withTitle: "OK")
             alert.runModal()
-            launchAtLoginCheckbox.state = LoginItemManager.isEnabled() ? .on : .off
+            let current = LoginItemManager.isEnabled()
+            launchAtLoginCheckbox.state = current ? .on : .off
+            loginStatusLabel.stringValue = "Login item error: \(error)"
+            loginStatusLabel.textColor = .systemRed
         }
     }
 
@@ -249,6 +265,11 @@ final class PreferencesViewController: NSViewController {
         let enabled = (emergencyCancelCheckbox.state == .on)
         UserDefaults.standard.set(enabled, forKey: PreferencesKeys.emergencyCancelEnabled)
         onEmergencyCancelEnabledChanged?(enabled)
+    }
+
+    private func updateLoginStatusLabel(enabled: Bool) {
+        loginStatusLabel.stringValue = enabled ? "Login item: Enabled" : "Login item: Disabled"
+        loginStatusLabel.textColor = .secondaryLabelColor
     }
 
     @objc private func onDoublePressWindowSliderChanged() {
