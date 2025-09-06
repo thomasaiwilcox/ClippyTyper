@@ -24,6 +24,13 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Hotkeys: parser supports letters, digits, punctuation, arrows, function keys, and named keys (e.g., `cmd+shift+f12`). Preferences show status if registration fails (likely conflict).
  - CLI control: `swift run clippyctl start|pause|cancel` posts a distributed notification to the running app (useful for Stream Deck/Alfred). For a URL scheme, add CFBundleURLTypes when migrating to an Xcode app bundle.
 
+## CI (GitHub Actions)
+- Workflow: `.github/workflows/ci.yml` runs on pushes and PRs to `main` and `release/**`.
+- Jobs:
+  - Build & Test (SwiftPM): `swift build` and `swift test` on `macos-13`.
+  - Lint (optional): installs `swiftformat`/`swiftlint` via Homebrew and runs `Scripts/lint.sh`.
+- View status: `gh run list` and open checks in the PR UI; rerun with `gh run rerun <id>`.
+
 ## Coding Style & Naming Conventions
 - Swift 5+, Swift API Design Guidelines; 4-space indent; ~120 col width.
 - Names: Types `PascalCase` (e.g., `TypingEngine`), methods/vars `camelCase`.
