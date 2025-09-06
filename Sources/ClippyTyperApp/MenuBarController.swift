@@ -9,6 +9,7 @@ final class MenuBarController: NSObject {
     var onOpenPreferences: (() -> Void)?
     var onOpenHelp: (() -> Void)?
     var onOpenPermissions: (() -> Void)?
+    var onExcludeCurrentApp: (() -> Void)?
     var onQuit: (() -> Void)?
 
     private var pauseItem: NSMenuItem!
@@ -41,6 +42,12 @@ final class MenuBarController: NSObject {
 
         menu.addItem(NSMenuItem.separator())
 
+        let excludeItem = NSMenuItem(title: "Exclude Current App", action: #selector(excludeCurrentApp), keyEquivalent: "")
+        excludeItem.target = self
+        menu.addItem(excludeItem)
+
+        menu.addItem(NSMenuItem.separator())
+
         let prefsItem = NSMenuItem(title: "Preferences…", action: #selector(openPreferences), keyEquivalent: ",")
         prefsItem.target = self
         menu.addItem(prefsItem)
@@ -65,6 +72,7 @@ final class MenuBarController: NSObject {
     @objc private func startTyping() { onStartTyping?() }
     @objc private func pauseResume() { onPauseResume?() }
     @objc private func cancelTyping() { onCancel?() }
+    @objc private func excludeCurrentApp() { onExcludeCurrentApp?() }
     @objc private func openPreferences() { onOpenPreferences?() }
     @objc private func openPermissions() { onOpenPermissions?() }
     @objc private func openHelp() { onOpenHelp?() }

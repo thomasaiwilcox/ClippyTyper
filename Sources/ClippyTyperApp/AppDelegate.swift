@@ -28,6 +28,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menuBar.onStartTyping = { [weak self] in self?.startTypingFromClipboard() }
         menuBar.onPauseResume = { [weak self] in self?.togglePause() }
         menuBar.onCancel = { [weak self] in self?.cancelTyping() }
+        menuBar.onExcludeCurrentApp = { [weak self] in self?.excludeCurrentApp() }
         menuBar.onOpenPreferences = { [weak self] in self?.openPreferences() }
         menuBar.onOpenHelp = { [weak self] in self?.openHelp() }
         menuBar.onOpenPermissions = { [weak self] in self?.openPermissions() }
@@ -100,6 +101,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
 
+        // Respect per-app exceptions
+        if let active = NSWorkspace.shared.frontmostApplication?.bundleIdentifier {
+            let list = UserDefaults.standard.array(forKey: PreferencesKeys.perAppExceptions) as? [String] ?? []
+            if list.contains(active) {
+                NSLog("ClippyTyper: Skipping typing for excluded app: \(active)")
+                NSBeep()
+                return
+            }
+        }
+
         let pasteboard = NSPasteboard.general
         guard let text = pasteboard.string(forType: .string), !text.isEmpty else { return }
 
@@ -119,6 +130,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                     KeyEventUtil.sendCommandV()
                 }
             }
+        }
+    }
+
+    private func excludeCurrentApp() {
+        guard let active = NSWorkspace.shared.frontmostApplication?.bundleIdentifier else { return }
+        var list = UserDefaults.standard.array(forKey: PreferencesKeys.perAppExceptions) as? [String] ?? []
+        if !list.contains(active) {
+            list.append(active)
+            UserDefaults.standard.set(list, forKey: PreferencesKeys.perAppExceptions)
+            NSLog("ClippyTyper: Added to exclusions: \(active)")
         }
     }
 
