@@ -19,10 +19,21 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Core library (SwiftPM): `swift build` and `swift test` for `ClippyTyperCore`.
 - Run skeleton app (SwiftPM): `swift run ClippyTyperApp` (Status bar shows "Clippy"). Uses `CGEvent` to emit keystrokes; requires Accessibility permission.
 - Preferences: open from the menu to change typing speed and global hotkey; updates apply immediately and hotkey re-registers live. Toggle emergency cancel and adjust double‑press window. Launch at login uses a user LaunchAgent during SPM development; a bundled login helper can be added for releases.
+ - Launch at login: in the bundled Xcode app, uses `SMAppService` with a helper target (`ClippyTyperHelper`); during SwiftPM dev, falls back to a user LaunchAgent.
  - Permissions: open from the menu to review Accessibility/Input Monitoring status and jump to System Settings. The app auto-opens this if a required permission is missing at launch.
 - Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+cmd+esc`).
 - Hotkeys: parser supports letters, digits, punctuation, arrows, function keys, and named keys (e.g., `cmd+shift+f12`). Preferences show status if registration fails (likely conflict).
  - CLI control: `swift run clippyctl start|pause|cancel` posts a distributed notification to the running app (useful for Stream Deck/Alfred). For a URL scheme, add CFBundleURLTypes when migrating to an Xcode app bundle.
+ - Per‑App Exceptions: exclude the current app from the menu, or manage the list in Preferences (add, remove, clear). ClippyTyper will not type when an excluded app is active.
+
+## CI (GitHub Actions)
+- Workflow: `.github/workflows/ci.yml` runs on pushes and PRs to `main` and `release/**`.
+- Jobs:
+  - Build & Test (SwiftPM): `swift build` and `swift test` on `macos-13`.
+  - Lint (optional): installs `swiftformat`/`swiftlint` via Homebrew and runs `Scripts/lint.sh`.
+  - Build (Xcode): generates with XcodeGen and builds the `ClippyTyper` scheme.
+  - Test (Xcode, best-effort): runs `xcodebuild … test`; marked continue-on-error since UI automation can be restricted on runners.
+- View status: `gh run list` and open checks in the PR UI; rerun with `gh run rerun <id>`.
 
 ## Coding Style & Naming Conventions
 - Swift 5+, Swift API Design Guidelines; 4-space indent; ~120 col width.
@@ -60,7 +71,7 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - HotkeyManager: Registers a global shortcut, debounces repeats, and routes to `TypingEngine`. Surface conflicts in Preferences.
 - MenuBarController: `NSStatusItem` with actions (Start Typing, Pause/Cancel, Preferences) and status indicators.
 - PermissionsManager: Checks Accessibility permission on launch and exposes a guided “Enable Accessibility” flow if missing.
-- PreferencesStore: `UserDefaults` for `typingSpeed`, `hotkey`, and `launchAtLogin`. Keys live in `ClippyTyper/Preferences/UserDefaultsKeys.swift`; defaults in `ClippyTyper/Preferences/RegisterDefaults.swift` (call `PreferencesDefaults.register()` at launch). Apply changes live.
+- PreferencesStore: `UserDefaults` for `typingSpeed`, `hotkey`, and `launchAtLogin`. Keys live in `Sources/ClippyTyperPreferences/UserDefaultsKeys.swift`; defaults in `Sources/ClippyTyperPreferences/RegisterDefaults.swift` (call `PreferencesDefaults.register()` at launch). Apply changes live.
 - App Wiring: `AppDelegate` composes the above components; keep UI work on main thread and typing scheduling off the main thread.
 
 ## Security, Permissions & Performance
@@ -81,6 +92,7 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Xcode project: optional via XcodeGen.
   - Easiest: `make xcode` (runs XcodeGen and opens the project).
   - Or manually: `cd xcode && xcodegen generate && open ClippyTyper.xcodeproj`.
+  - Helper target `ClippyTyperHelper` is included for login items; ensure code signing is set before testing `SMAppService`.
   - Build via Xcode: `make xcode-build` (uses scheme `ClippyTyper`; override with `XCODE_SCHEME=…`).
   - Test via Xcode: `make xcode-test` (runs the scheme’s test action; UI tests require enabling automation permissions).
   - The app target registers the URL scheme `clippytyper://<action>` (actions: `start`, `pause`, `cancel`).

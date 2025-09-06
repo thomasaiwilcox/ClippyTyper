@@ -50,7 +50,7 @@ Deliver a macOS Sonoma-focused menu bar utility that types plain-text clipboard 
 - [x] Permissions onboarding flow (permissions window + auto-prompt) [PR: #___] [Commit: ___] (2025-09-05)
 - [ ] Instant paste fallback (optional) [PR: #___]
 - [x] Pause/resume and cancel shortcuts [PR: #___] [Commit: ___] (2025-09-05)
-- [ ] Per-app exceptions by bundle id (optional) [PR: #___]
+- [x] Per-app exceptions by bundle id (menu: Exclude Current App; skip at runtime) [PR: #2] [Commit: ___] (2025-09-06)
 - [ ] Performance validation: idle CPU/mem, large text reliability [PR: #___]
 - [ ] Packaging: entitlements, codesign, notarization (as applicable) [PR: #___]
 - [ ] Release notes and screenshots/GIFs [PR: #___]

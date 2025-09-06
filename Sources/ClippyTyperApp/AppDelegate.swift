@@ -14,6 +14,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var permissionsWindow: PermissionsWindowController?
     private var session: TypingSession?
     private var keyboardMonitor: KeyboardEventMonitor?
+    private var progressHUD: ProgressHUD?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         PreferencesDefaults.register()
@@ -28,6 +29,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menuBar.onStartTyping = { [weak self] in self?.startTypingFromClipboard() }
         menuBar.onPauseResume = { [weak self] in self?.togglePause() }
         menuBar.onCancel = { [weak self] in self?.cancelTyping() }
+        menuBar.onExcludeCurrentApp = { [weak self] in self?.excludeCurrentApp() }
         menuBar.onOpenPreferences = { [weak self] in self?.openPreferences() }
         menuBar.onOpenHelp = { [weak self] in self?.openHelp() }
         menuBar.onOpenPermissions = { [weak self] in self?.openPermissions() }
@@ -100,11 +102,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
 
+        // Respect per-app exceptions
+        if let active = NSWorkspace.shared.frontmostApplication?.bundleIdentifier {
+            let list = UserDefaults.standard.array(forKey: PreferencesKeys.perAppExceptions) as? [String] ?? []
+            if list.contains(active) {
+                NSLog("ClippyTyper: Skipping typing for excluded app: \(active)")
+                NSSound.beep()
+                return
+            }
+        }
+
         let pasteboard = NSPasteboard.general
         guard let text = pasteboard.string(forType: .string), !text.isEmpty else { return }
 
         let cps = UserDefaults.standard.double(forKey: PreferencesKeys.typingSpeed)
         let speed = cps > 0 ? cps : 15.0
+
+        // Note: keep typing path as primary; fallbacks handled on failure below.
 
         // Cancel any existing session
         session?.cancel()
@@ -112,13 +126,38 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let newSession = TypingSession(baseSender: baseSender)
         self.session = newSession
         menuBar.setPaused(false)
-        newSession.start(text: text, cps: speed) { result in
+        if progressHUD == nil { progressHUD = ProgressHUD() }
+        progressHUD?.show()
+        progressHUD?.update(progress: 0, paused: false)
+        menuBar.setProgress(0)
+        newSession.start(text: text, cps: speed, progress: { [weak self] frac in
+            DispatchQueue.main.async {
+                self?.menuBar.setProgress(frac)
+                self?.progressHUD?.update(progress: frac, paused: self?.session?.isPaused ?? false)
+            }
+        }) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.menuBar.setProgress(nil)
+                self?.progressHUD?.hide()
+            }
             if case .failure(let error) = result {
                 NSLog("Typing failed: \(error)")
                 if UserDefaults.standard.bool(forKey: PreferencesKeys.instantPasteFallback) {
-                    KeyEventUtil.sendCommandV()
+                    if !AXValueInjector.trySetValue(text) {
+                        KeyEventUtil.sendCommandV()
+                    }
                 }
             }
+        }
+    }
+
+    private func excludeCurrentApp() {
+        guard let active = NSWorkspace.shared.frontmostApplication?.bundleIdentifier else { return }
+        var list = UserDefaults.standard.array(forKey: PreferencesKeys.perAppExceptions) as? [String] ?? []
+        if !list.contains(active) {
+            list.append(active)
+            UserDefaults.standard.set(list, forKey: PreferencesKeys.perAppExceptions)
+            NSLog("ClippyTyper: Added to exclusions: \(active)")
         }
     }
 
@@ -180,10 +219,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         guard let session else { return }
         session.togglePause()
         menuBar.setPaused(session.isPaused)
+        progressHUD?.update(progress: nil, paused: session.isPaused)
     }
 
     private func cancelTyping() {
         session?.cancel()
         menuBar.setPaused(false)
+        progressHUD?.hide()
     }
 }

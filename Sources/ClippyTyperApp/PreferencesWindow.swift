@@ -4,9 +4,10 @@ import ClippyTyperPreferences
 final class PreferencesWindowController: NSWindowController {
     init(contentViewController: NSViewController) {
         let window = NSWindow(contentViewController: contentViewController)
-        window.styleMask = [.titled, .closable, .miniaturizable]
+        window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
         window.title = "Preferences"
-        window.setContentSize(NSSize(width: 440, height: 320))
+        window.setContentSize(NSSize(width: 560, height: 520))
+        window.minSize = NSSize(width: 520, height: 420)
         super.init(window: window)
     }
 
@@ -41,6 +42,12 @@ final class PreferencesViewController: NSViewController {
         let b = NSButton(checkboxWithTitle: "Launch at login", target: nil, action: nil)
         return b
     }()
+    private let loginStatusLabel: NSTextField = {
+        let tf = NSTextField(labelWithString: "")
+        tf.textColor = .secondaryLabelColor
+        tf.lineBreakMode = .byTruncatingTail
+        return tf
+    }()
 
     private let emergencyCancelCheckbox: NSButton = {
         let b = NSButton(checkboxWithTitle: "Enable emergency cancel (Esc×2 / ctrl+opt+cmd+Esc)", target: nil, action: nil)
@@ -55,6 +62,15 @@ final class PreferencesViewController: NSViewController {
         let b = NSButton(checkboxWithTitle: "Use instant paste fallback when typing fails", target: nil, action: nil)
         return b
     }()
+
+    // Exclusions UI
+    private let exclusionsLabel = NSTextField(labelWithString: "Excluded apps (bundle IDs)")
+    private let exclusionsScroll = NSScrollView()
+    private let exclusionsTable = NSTableView()
+    private let excludeCurrentButton = NSButton(title: "Exclude Current App", target: nil, action: nil)
+    private let removeSelectedButton = NSButton(title: "Remove Selected", target: nil, action: nil)
+    private let clearExclusionsButton = NSButton(title: "Clear All", target: nil, action: nil)
+    private var exclusions: [String] = []
 
     var onTypingSpeedChanged: ((Double) -> Void)?
     var onHotkeyChanged: ((String) -> Void)?
@@ -76,9 +92,10 @@ final class PreferencesViewController: NSViewController {
         speedValueLabel.stringValue = String(Int(speedSlider.doubleValue))
         let currentHotkey = defaults.string(forKey: PreferencesKeys.hotkey) ?? "ctrl+opt+t"
         hotkeyField.stringValue = currentHotkey
-        // Prefer actual system state; fall back to stored pref
-        let sysEnabled = LaunchAtLoginManager.isEnabled()
+        // Prefer actual system state (SMAppService when bundled; fallback to LaunchAgent)
+        let sysEnabled = LoginItemManager.isEnabled()
         launchAtLoginCheckbox.state = sysEnabled ? .on : (defaults.bool(forKey: PreferencesKeys.launchAtLogin) ? .on : .off)
+        updateLoginStatusLabel(enabled: sysEnabled)
         emergencyCancelCheckbox.state = defaults.bool(forKey: PreferencesKeys.emergencyCancelEnabled) ? .on : .off
         let dpw = defaults.double(forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
         doublePressSlider.doubleValue = (dpw > 0 ? dpw : 0.4)
@@ -86,7 +103,14 @@ final class PreferencesViewController: NSViewController {
         instantPasteFallbackCheckbox.state = defaults.bool(forKey: PreferencesKeys.instantPasteFallback) ? .on : .off
 
         // Build layout
-        [speedLabel, speedSlider, speedValueLabel, hotkeyLabel, hotkeyField, applyHotkeyButton, hotkeyStatusLabel, launchAtLoginCheckbox, emergencyCancelCheckbox, doublePressLabel, doublePressSlider, doublePressValueLabel, instantPasteFallbackCheckbox].forEach {
+        [speedLabel, speedSlider, speedValueLabel,
+         hotkeyLabel, hotkeyField, applyHotkeyButton, hotkeyStatusLabel,
+         launchAtLoginCheckbox,
+         emergencyCancelCheckbox,
+         doublePressLabel, doublePressSlider, doublePressValueLabel,
+         instantPasteFallbackCheckbox,
+         loginStatusLabel,
+         exclusionsLabel, exclusionsScroll, excludeCurrentButton, removeSelectedButton, clearExclusionsButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
@@ -133,7 +157,28 @@ final class PreferencesViewController: NSViewController {
             doublePressValueLabel.leadingAnchor.constraint(equalTo: doublePressSlider.trailingAnchor, constant: 8),
 
             instantPasteFallbackCheckbox.topAnchor.constraint(equalTo: doublePressSlider.bottomAnchor, constant: 16),
-            instantPasteFallbackCheckbox.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor)
+            instantPasteFallbackCheckbox.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+
+            loginStatusLabel.centerYAnchor.constraint(equalTo: launchAtLoginCheckbox.centerYAnchor),
+            loginStatusLabel.leadingAnchor.constraint(equalTo: launchAtLoginCheckbox.trailingAnchor, constant: 12),
+            loginStatusLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
+
+            exclusionsLabel.topAnchor.constraint(equalTo: instantPasteFallbackCheckbox.bottomAnchor, constant: 16),
+            exclusionsLabel.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+
+            exclusionsScroll.topAnchor.constraint(equalTo: exclusionsLabel.bottomAnchor, constant: 8),
+            exclusionsScroll.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+            exclusionsScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+
+            excludeCurrentButton.topAnchor.constraint(equalTo: exclusionsScroll.bottomAnchor, constant: 8),
+            excludeCurrentButton.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+            excludeCurrentButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+
+            removeSelectedButton.centerYAnchor.constraint(equalTo: excludeCurrentButton.centerYAnchor),
+            removeSelectedButton.leadingAnchor.constraint(equalTo: excludeCurrentButton.trailingAnchor, constant: 8),
+
+            clearExclusionsButton.centerYAnchor.constraint(equalTo: excludeCurrentButton.centerYAnchor),
+            clearExclusionsButton.leadingAnchor.constraint(equalTo: removeSelectedButton.trailingAnchor, constant: 8)
         ])
 
         // Wire actions
@@ -150,7 +195,18 @@ final class PreferencesViewController: NSViewController {
         instantPasteFallbackCheckbox.target = self
         instantPasteFallbackCheckbox.action = #selector(onInstantPasteFallbackToggled)
 
+        excludeCurrentButton.target = self
+        excludeCurrentButton.action = #selector(onExcludeCurrentApp)
+        removeSelectedButton.target = self
+        removeSelectedButton.action = #selector(onRemoveSelected)
+        clearExclusionsButton.target = self
+        clearExclusionsButton.action = #selector(onClearExclusions)
+
         NotificationCenter.default.addObserver(self, selector: #selector(onHotkeyRegistrationResult(_:)), name: .hotkeyRegistrationResult, object: nil)
+
+        // Exclusions table setup
+        setupExclusionsTable()
+        loadExclusions()
     }
 
     @objc private func onInstantPasteFallbackToggled() {
@@ -187,8 +243,9 @@ final class PreferencesViewController: NSViewController {
     @objc private func onLaunchAtLoginToggled() {
         let enabled = (launchAtLoginCheckbox.state == .on)
         do {
-            try LaunchAtLoginManager.setEnabled(enabled)
+            try LoginItemManager.setEnabled(enabled)
             UserDefaults.standard.set(enabled, forKey: PreferencesKeys.launchAtLogin)
+            updateLoginStatusLabel(enabled: enabled)
             onLaunchAtLoginChanged?(enabled)
         } catch {
             let alert = NSAlert()
@@ -197,7 +254,10 @@ final class PreferencesViewController: NSViewController {
             alert.informativeText = String(describing: error)
             alert.addButton(withTitle: "OK")
             alert.runModal()
-            launchAtLoginCheckbox.state = LaunchAtLoginManager.isEnabled() ? .on : .off
+            let current = LoginItemManager.isEnabled()
+            launchAtLoginCheckbox.state = current ? .on : .off
+            loginStatusLabel.stringValue = "Login item error: \(error)"
+            loginStatusLabel.textColor = .systemRed
         }
     }
 
@@ -207,11 +267,88 @@ final class PreferencesViewController: NSViewController {
         onEmergencyCancelEnabledChanged?(enabled)
     }
 
+    private func updateLoginStatusLabel(enabled: Bool) {
+        loginStatusLabel.stringValue = enabled ? "Login item: Enabled" : "Login item: Disabled"
+        loginStatusLabel.textColor = .secondaryLabelColor
+    }
+
     @objc private func onDoublePressWindowSliderChanged() {
         let val = (round(doublePressSlider.doubleValue * 10) / 10) // step 0.1
         doublePressSlider.doubleValue = val
         doublePressValueLabel.stringValue = String(format: "%.1f", val)
         UserDefaults.standard.set(val, forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
         onDoublePressWindowChanged?(val)
+    }
+
+    // MARK: - Exclusions
+
+    private func setupExclusionsTable() {
+        let col = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("BundleID"))
+        col.title = "Bundle ID"
+        col.width = 380
+        exclusionsTable.addTableColumn(col)
+        exclusionsTable.headerView = nil
+        exclusionsTable.usesAlternatingRowBackgroundColors = true
+        exclusionsTable.allowsMultipleSelection = true
+        exclusionsTable.delegate = self
+        exclusionsTable.dataSource = self
+        exclusionsScroll.documentView = exclusionsTable
+        exclusionsScroll.hasVerticalScroller = true
+        exclusionsScroll.borderType = .bezelBorder
+    }
+
+    private func loadExclusions() {
+        exclusions = (UserDefaults.standard.array(forKey: PreferencesKeys.perAppExceptions) as? [String] ?? [])
+        exclusionsTable.reloadData()
+    }
+
+    private func saveExclusions() {
+        UserDefaults.standard.set(exclusions, forKey: PreferencesKeys.perAppExceptions)
+        exclusionsTable.reloadData()
+    }
+
+    @objc private func onExcludeCurrentApp() {
+        guard let active = NSWorkspace.shared.frontmostApplication?.bundleIdentifier else { return }
+        if !exclusions.contains(active) {
+            exclusions.append(active)
+            exclusions.sort()
+            saveExclusions()
+        }
+    }
+
+    @objc private func onRemoveSelected() {
+        let rows = exclusionsTable.selectedRowIndexes
+        guard !rows.isEmpty else { return }
+        exclusions = exclusions.enumerated().filter { !rows.contains($0.offset) }.map { $0.element }
+        saveExclusions()
+    }
+
+    @objc private func onClearExclusions() {
+        exclusions.removeAll()
+        saveExclusions()
+    }
+}
+
+extension PreferencesViewController: NSTableViewDataSource, NSTableViewDelegate {
+    func numberOfRows(in tableView: NSTableView) -> Int { exclusions.count }
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let id = NSUserInterfaceItemIdentifier("Cell")
+        let cell = tableView.makeView(withIdentifier: id, owner: self) as? NSTableCellView ?? {
+            let v = NSTableCellView()
+            v.identifier = id
+            let tf = NSTextField(labelWithString: "")
+            tf.translatesAutoresizingMaskIntoConstraints = false
+            v.addSubview(tf)
+            v.textField = tf
+            NSLayoutConstraint.activate([
+                tf.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 6),
+                tf.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -6),
+                tf.topAnchor.constraint(equalTo: v.topAnchor, constant: 2),
+                tf.bottomAnchor.constraint(equalTo: v.bottomAnchor, constant: -2)
+            ])
+            return v
+        }()
+        cell.textField?.stringValue = exclusions[row]
+        return cell
     }
 }

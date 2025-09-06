@@ -9,9 +9,11 @@ final class MenuBarController: NSObject {
     var onOpenPreferences: (() -> Void)?
     var onOpenHelp: (() -> Void)?
     var onOpenPermissions: (() -> Void)?
+    var onExcludeCurrentApp: (() -> Void)?
     var onQuit: (() -> Void)?
 
     private var pauseItem: NSMenuItem!
+    private var baseTitle: String = "Clippy"
 
     override init() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -21,7 +23,7 @@ final class MenuBarController: NSObject {
 
     private func constructMenu() {
         if let button = statusItem.button {
-            button.title = "Clippy"
+            button.title = baseTitle
             button.setAccessibilityLabel("ClippyTyper")
         }
         let menu = NSMenu()
@@ -38,6 +40,12 @@ final class MenuBarController: NSObject {
         let cancelItem = NSMenuItem(title: "Cancel Typing", action: #selector(cancelTyping), keyEquivalent: "c")
         cancelItem.target = self
         menu.addItem(cancelItem)
+
+        menu.addItem(NSMenuItem.separator())
+
+        let excludeItem = NSMenuItem(title: "Exclude Current App", action: #selector(excludeCurrentApp), keyEquivalent: "")
+        excludeItem.target = self
+        menu.addItem(excludeItem)
 
         menu.addItem(NSMenuItem.separator())
 
@@ -65,6 +73,7 @@ final class MenuBarController: NSObject {
     @objc private func startTyping() { onStartTyping?() }
     @objc private func pauseResume() { onPauseResume?() }
     @objc private func cancelTyping() { onCancel?() }
+    @objc private func excludeCurrentApp() { onExcludeCurrentApp?() }
     @objc private func openPreferences() { onOpenPreferences?() }
     @objc private func openPermissions() { onOpenPermissions?() }
     @objc private func openHelp() { onOpenHelp?() }
@@ -72,5 +81,15 @@ final class MenuBarController: NSObject {
 
     func setPaused(_ paused: Bool) {
         pauseItem.title = paused ? "Resume Typing" : "Pause Typing"
+    }
+
+    func setProgress(_ fraction: Double?) {
+        guard let button = statusItem.button else { return }
+        if let f = fraction {
+            let pct = Int((f * 100).rounded())
+            button.title = "\(baseTitle) \(pct)%"
+        } else {
+            button.title = baseTitle
+        }
     }
 }
