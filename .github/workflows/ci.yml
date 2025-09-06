@@ -56,7 +56,7 @@ jobs:
 
   xcode-build:
     name: Build (Xcode)
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -81,7 +81,7 @@ jobs:
 
   xcode-test:
     name: Test (Xcode)
-    runs-on: macos-13
+    runs-on: macos-14
     continue-on-error: true # UI automation may be restricted on runners
     steps:
       - name: Checkout

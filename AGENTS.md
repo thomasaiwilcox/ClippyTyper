@@ -70,7 +70,7 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - HotkeyManager: Registers a global shortcut, debounces repeats, and routes to `TypingEngine`. Surface conflicts in Preferences.
 - MenuBarController: `NSStatusItem` with actions (Start Typing, Pause/Cancel, Preferences) and status indicators.
 - PermissionsManager: Checks Accessibility permission on launch and exposes a guided “Enable Accessibility” flow if missing.
-- PreferencesStore: `UserDefaults` for `typingSpeed`, `hotkey`, and `launchAtLogin`. Keys live in `ClippyTyper/Preferences/UserDefaultsKeys.swift`; defaults in `ClippyTyper/Preferences/RegisterDefaults.swift` (call `PreferencesDefaults.register()` at launch). Apply changes live.
+- PreferencesStore: `UserDefaults` for `typingSpeed`, `hotkey`, and `launchAtLogin`. Keys live in `Sources/ClippyTyperPreferences/UserDefaultsKeys.swift`; defaults in `Sources/ClippyTyperPreferences/RegisterDefaults.swift` (call `PreferencesDefaults.register()` at launch). Apply changes live.
 - App Wiring: `AppDelegate` composes the above components; keep UI work on main thread and typing scheduling off the main thread.
 
 ## Security, Permissions & Performance

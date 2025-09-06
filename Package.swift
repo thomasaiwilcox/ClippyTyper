@@ -22,7 +22,7 @@ let package = Package(
                 .linkedFramework("Carbon")
             ]
         ),
-        .target(name: "ClippyTyperPreferences", path: "ClippyTyper/Preferences"),
+        .target(name: "ClippyTyperPreferences"),
         .executableTarget(
             name: "ClippyTyperApp",
             dependencies: [
