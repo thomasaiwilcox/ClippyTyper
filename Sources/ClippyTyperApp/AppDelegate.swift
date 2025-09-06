@@ -106,7 +106,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             let list = UserDefaults.standard.array(forKey: PreferencesKeys.perAppExceptions) as? [String] ?? []
             if list.contains(active) {
                 NSLog("ClippyTyper: Skipping typing for excluded app: \(active)")
-                NSBeep()
+                NSSound.beep()
                 return
             }
         }

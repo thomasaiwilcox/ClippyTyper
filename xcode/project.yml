@@ -38,7 +38,7 @@ targets:
     type: bundle.ui-testing
     platform: macOS
     sources:
-      - path: xcode/UITests
+      - path: UITests
     dependencies:
       - target: ClippyTyper
 schemes:
