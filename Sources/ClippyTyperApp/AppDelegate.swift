@@ -14,6 +14,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var permissionsWindow: PermissionsWindowController?
     private var session: TypingSession?
     private var keyboardMonitor: KeyboardEventMonitor?
+    private var progressHUD: ProgressHUD?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         PreferencesDefaults.register()
