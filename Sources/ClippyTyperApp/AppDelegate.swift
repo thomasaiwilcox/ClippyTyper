@@ -117,10 +117,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let cps = UserDefaults.standard.double(forKey: PreferencesKeys.typingSpeed)
         let speed = cps > 0 ? cps : 15.0
 
-        // Fast-path: try AX value injection (instant insert) before typing keystrokes
-        if AXValueInjector.trySetValue(text) {
-            return
-        }
+        // Note: keep typing path as primary; fallbacks handled on failure below.
 
         // Cancel any existing session
         session?.cancel()
@@ -132,7 +129,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             if case .failure(let error) = result {
                 NSLog("Typing failed: \(error)")
                 if UserDefaults.standard.bool(forKey: PreferencesKeys.instantPasteFallback) {
-                    KeyEventUtil.sendCommandV()
+                    if !AXValueInjector.trySetValue(text) {
+                        KeyEventUtil.sendCommandV()
+                    }
                 }
             }
         }
