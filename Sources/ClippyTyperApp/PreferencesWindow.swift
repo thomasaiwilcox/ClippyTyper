@@ -157,10 +157,10 @@ final class PreferencesViewController: NSViewController {
             exclusionsScroll.topAnchor.constraint(equalTo: exclusionsLabel.bottomAnchor, constant: 8),
             exclusionsScroll.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
             exclusionsScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            exclusionsScroll.heightAnchor.constraint(equalToConstant: 240),
 
             excludeCurrentButton.topAnchor.constraint(equalTo: exclusionsScroll.bottomAnchor, constant: 8),
             excludeCurrentButton.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+            excludeCurrentButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
 
             removeSelectedButton.centerYAnchor.constraint(equalTo: excludeCurrentButton.centerYAnchor),
             removeSelectedButton.leadingAnchor.constraint(equalTo: excludeCurrentButton.trailingAnchor, constant: 8),

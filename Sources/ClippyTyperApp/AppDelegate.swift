@@ -125,7 +125,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let newSession = TypingSession(baseSender: baseSender)
         self.session = newSession
         menuBar.setPaused(false)
-        newSession.start(text: text, cps: speed) { result in
+        menuBar.setProgress(0)
+        newSession.start(text: text, cps: speed, progress: { [weak self] frac in
+            DispatchQueue.main.async { self?.menuBar.setProgress(frac) }
+        }) { [weak self] result in
+            DispatchQueue.main.async { self?.menuBar.setProgress(nil) }
             if case .failure(let error) = result {
                 NSLog("Typing failed: \(error)")
                 if UserDefaults.standard.bool(forKey: PreferencesKeys.instantPasteFallback) {
