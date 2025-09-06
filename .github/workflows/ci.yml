@@ -78,3 +78,29 @@ jobs:
           xcodebuild -project xcode/ClippyTyper.xcodeproj -scheme ClippyTyper -configuration Debug -destination 'platform=macOS' build | xcpretty || true
         env:
           NSUnbufferedIO: "YES"
+
+  xcode-test:
+    name: Test (Xcode)
+    runs-on: macos-13
+    continue-on-error: true # UI automation may be restricted on runners
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: |
+          if ! command -v xcodegen >/dev/null 2>&1; then
+            brew update
+            brew install xcodegen
+          fi
+
+      - name: Generate Xcode project
+        run: |
+          cd xcode
+          xcodegen generate
+
+      - name: Test app scheme (includes UI tests)
+        run: |
+          xcodebuild -project xcode/ClippyTyper.xcodeproj -scheme ClippyTyper -destination 'platform=macOS' test || true
+        env:
+          NSUnbufferedIO: "YES"

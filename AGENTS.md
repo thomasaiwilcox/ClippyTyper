@@ -29,6 +29,8 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Jobs:
   - Build & Test (SwiftPM): `swift build` and `swift test` on `macos-13`.
   - Lint (optional): installs `swiftformat`/`swiftlint` via Homebrew and runs `Scripts/lint.sh`.
+  - Build (Xcode): generates with XcodeGen and builds the `ClippyTyper` scheme.
+  - Test (Xcode, best-effort): runs `xcodebuild … test`; marked continue-on-error since UI automation can be restricted on runners.
 - View status: `gh run list` and open checks in the PR UI; rerun with `gh run rerun <id>`.
 
 ## Coding Style & Naming Conventions
