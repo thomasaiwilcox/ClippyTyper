@@ -38,16 +38,16 @@ Deliver a macOS Sonoma-focused menu bar utility that types plain-text clipboard 
 - [x] HID-level start hotkey detection via event tap (requires Input Monitoring) [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Help panel with VM/Citrix guidance [PR: #___] [Commit: ___] (2025-09-05)
 - [x] CLI control tool (`clippyctl start|pause|cancel`) via Distributed Notifications [PR: #___] [Commit: ___] (2025-09-05)
-- [ ] URL scheme (`clippytyper://start`) when migrating to Xcode app bundle (add CFBundleURLTypes) [PR: #___]
+- [x] URL scheme (`clippytyper://start|pause|cancel`) via Xcode app bundle (CFBundleURLTypes) [PR: #___] [Commit: ___] (2025-09-05)
  - [x] XcodeGen project with app target + URL scheme and UI test bundle [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Preferences UI: typing speed + hotkey (live apply); store launch-at-login [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Preferences: emergency cancel toggle + double-press window [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Instant paste fallback toggle + Cmd+V injection on failure [PR: #___] [Commit: ___] (2025-09-05)
 - [x] Launch at login integration (LaunchAgent while on SPM; migrate to SMAppService with helper when bundling) [PR: #___] [Commit: ___] (2025-09-05)
-- [ ] UI tests: shortcut triggers typing; pause/cancel when implemented [PR: #___]
+- [ ] UI tests: shortcut triggers typing; pause/cancel; preferences hotkey re-registers [PR: #___]
 - [x] Parsing tests: HotkeyManager parse mappings (function keys, punctuation) [PR: #___] [Commit: ___] (2025-09-05)
 - [x] MenuBarController: Pause/Cancel actions [PR: #___] [Commit: ___] (2025-09-05)
-- [ ] Permissions onboarding flow (guided UI) [PR: #___]
+- [x] Permissions onboarding flow (permissions window + auto-prompt) [PR: #___] [Commit: ___] (2025-09-05)
 - [ ] Instant paste fallback (optional) [PR: #___]
 - [x] Pause/resume and cancel shortcuts [PR: #___] [Commit: ___] (2025-09-05)
 - [ ] Per-app exceptions by bundle id (optional) [PR: #___]

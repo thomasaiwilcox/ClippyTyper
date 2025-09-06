@@ -19,6 +19,7 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Core library (SwiftPM): `swift build` and `swift test` for `ClippyTyperCore`.
 - Run skeleton app (SwiftPM): `swift run ClippyTyperApp` (Status bar shows "Clippy"). Uses `CGEvent` to emit keystrokes; requires Accessibility permission.
 - Preferences: open from the menu to change typing speed and global hotkey; updates apply immediately and hotkey re-registers live. Toggle emergency cancel and adjust double‑press window. Launch at login uses a user LaunchAgent during SPM development; a bundled login helper can be added for releases.
+ - Permissions: open from the menu to review Accessibility/Input Monitoring status and jump to System Settings. The app auto-opens this if a required permission is missing at launch.
 - Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+cmd+esc`).
 - Hotkeys: parser supports letters, digits, punctuation, arrows, function keys, and named keys (e.g., `cmd+shift+f12`). Preferences show status if registration fails (likely conflict).
  - CLI control: `swift run clippyctl start|pause|cancel` posts a distributed notification to the running app (useful for Stream Deck/Alfred). For a URL scheme, add CFBundleURLTypes when migrating to an Xcode app bundle.
@@ -37,6 +38,16 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Commits: Conventional Commits (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`, `chore:`). Keep small and scoped.
 - Branches: `feature/<short-desc>` or `fix/<issue-#>` (e.g., `feature/typing-speed-pref`).
 - PRs: Include description, linked issues, screenshots/GIFs, notes on permissions/entitlements, and a short manual test checklist.
+
+## GitHub CLI
+- Install: `brew install gh`; authenticate: `gh auth login` (grants gh and git access).
+- Repo: `gh repo view` shows current; `gh browse` opens it in a browser; set default with `gh repo set-default <owner>/<repo>` if needed.
+- Branch & push: `git switch -c feature/<name>` → work → `git add -A && git commit -m "feat: ..." && git push -u origin HEAD`.
+- Pull requests: `gh pr create --fill` (or `-t <title> -b <body>`), then `gh pr view --web`; merge with `gh pr merge --squash --delete-branch`.
+- Issues: `gh issue create -t "Title" -b "Details"` and link in PRs; status with `gh status`.
+- Releases: `gh release create v1.0.0 <zip|dmg> -t "Title" -n "Notes"`.
+- Link plan: include `[PR: #<num>]`/`[Issue: #<num>]` in `implementationplan.md`; update after merge.
+- Help: `gh <command> <subcommand> --help` and manual: https://cli.github.com/manual
 
 ## Planning & Tracking
 - Implementation plan: keep `implementationplan.md` updated (check off tasks, add dates, and link PRs/commits).

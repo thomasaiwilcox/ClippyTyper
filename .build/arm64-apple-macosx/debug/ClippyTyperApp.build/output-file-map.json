@@ -72,6 +72,13 @@
     "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swiftdeps",
     "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.dia"
   },
+  "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsWindow.swift": {
+    "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsWindow.d",
+    "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsWindow.swift.o",
+    "swiftmodule": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsWindow~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsWindow.swiftdeps",
+    "diagnostics": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsWindow.dia"
+  },
   "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift": {
     "dependencies": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.d",
     "object": "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.swift.o",

@@ -68,6 +68,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsWindow.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift"
         },
         {
@@ -109,6 +113,7 @@
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/MenuBarController.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/Notifications.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swift.o",
+        "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsWindow.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.swift.o",
         "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/TypingSession.swift.o"
       ],
@@ -200,6 +205,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsWindow.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PreferencesWindow.swift.o"
         },
         {
@@ -223,6 +232,7 @@
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/Notifications.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift",
+        "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsWindow.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift",
         "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift"
       ],
@@ -907,6 +917,7 @@
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/MenuBarController.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/Notifications.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsManager.swift",
+      "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsWindow.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift",
       "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/TypingSession.swift",
       "-I",
@@ -1460,6 +1471,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PermissionsWindow.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/Sources/ClippyTyperApp/PreferencesWindow.swift"
         },
         {
@@ -1515,6 +1530,10 @@
         {
           "kind" : "file",
           "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tom/Documents/Projects/ClippyTyper/.build/arm64-apple-macosx/debug/ClippyTyperApp.build/PermissionsWindow.swift.o"
         },
         {
           "kind" : "file",

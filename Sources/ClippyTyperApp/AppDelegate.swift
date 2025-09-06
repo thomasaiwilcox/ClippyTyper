@@ -11,6 +11,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var cancelHotkeyManager: HotkeyManager?
     private var prefsWindow: PreferencesWindowController?
     private var helpWindow: HelpWindowController?
+    private var permissionsWindow: PermissionsWindowController?
     private var session: TypingSession?
     private var keyboardMonitor: KeyboardEventMonitor?
 
@@ -29,6 +30,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menuBar.onCancel = { [weak self] in self?.cancelTyping() }
         menuBar.onOpenPreferences = { [weak self] in self?.openPreferences() }
         menuBar.onOpenHelp = { [weak self] in self?.openHelp() }
+        menuBar.onOpenPermissions = { [weak self] in self?.openPermissions() }
         menuBar.onQuit = { NSApp.terminate(nil) }
 
         // Optional: check permissions at launch (non-blocking)
@@ -65,6 +67,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         monitor.setStartHotkey(from: hotkeyString)
         self.keyboardMonitor = monitor
         monitor.start()
+
+        // Show onboarding if permissions missing
+        if !PermissionsManager.hasAccessibilityPermission() || !PermissionsManager.hasInputMonitoringPermission() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.openPermissions()
+            }
+        }
     }
 
     // URL scheme handler: clippytyper://start|pause|cancel
@@ -149,6 +158,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.activate(ignoringOtherApps: true)
         helpWindow?.showWindow(nil)
         helpWindow?.window?.makeKeyAndOrderFront(nil)
+    }
+
+    private func openPermissions() {
+        if permissionsWindow == nil { permissionsWindow = PermissionsWindowController() }
+        NSApp.activate(ignoringOtherApps: true)
+        permissionsWindow?.showWindow(nil)
+        permissionsWindow?.window?.makeKeyAndOrderFront(nil)
     }
 
     private func registerHotkey(_ hotkeyString: String) {

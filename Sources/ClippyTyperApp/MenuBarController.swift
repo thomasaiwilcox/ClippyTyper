@@ -8,6 +8,7 @@ final class MenuBarController: NSObject {
     var onCancel: (() -> Void)?
     var onOpenPreferences: (() -> Void)?
     var onOpenHelp: (() -> Void)?
+    var onOpenPermissions: (() -> Void)?
     var onQuit: (() -> Void)?
 
     private var pauseItem: NSMenuItem!
@@ -44,6 +45,10 @@ final class MenuBarController: NSObject {
         prefsItem.target = self
         menu.addItem(prefsItem)
 
+        let permsItem = NSMenuItem(title: "Permissions…", action: #selector(openPermissions), keyEquivalent: "")
+        permsItem.target = self
+        menu.addItem(permsItem)
+
         let helpItem = NSMenuItem(title: "Help", action: #selector(openHelp), keyEquivalent: "?")
         helpItem.keyEquivalentModifierMask = [.command]
         helpItem.target = self
@@ -61,6 +66,7 @@ final class MenuBarController: NSObject {
     @objc private func pauseResume() { onPauseResume?() }
     @objc private func cancelTyping() { onCancel?() }
     @objc private func openPreferences() { onOpenPreferences?() }
+    @objc private func openPermissions() { onOpenPermissions?() }
     @objc private func openHelp() { onOpenHelp?() }
     @objc private func quitApp() { onQuit?() }
 

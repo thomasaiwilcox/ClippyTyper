@@ -1,0 +1,13 @@
+# macOS & tooling
+.DS_Store
+
+# SwiftPM build artifacts
+.build/
+.swiftpm/
+
+# Xcode (generated via XcodeGen)
+xcode/ClippyTyper.xcodeproj/
+
+# Editor settings
+.vscode/
+.idea/
