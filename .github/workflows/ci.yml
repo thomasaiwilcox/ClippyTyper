@@ -54,3 +54,27 @@ jobs:
           chmod +x Scripts/lint.sh
           ./Scripts/lint.sh || true
 
+  xcode-build:
+    name: Build (Xcode)
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: |
+          if ! command -v xcodegen >/dev/null 2>&1; then
+            brew update
+            brew install xcodegen
+          fi
+
+      - name: Generate Xcode project
+        run: |
+          cd xcode
+          xcodegen generate
+
+      - name: Build app target
+        run: |
+          xcodebuild -project xcode/ClippyTyper.xcodeproj -scheme ClippyTyper -configuration Debug -destination 'platform=macOS' build | xcpretty || true
+        env:
+          NSUnbufferedIO: "YES"

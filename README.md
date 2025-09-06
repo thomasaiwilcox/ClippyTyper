@@ -1,5 +1,7 @@
 # ClippyTyper
 
+[![CI](https://github.com/thomasaiwilcox/ClippyTyper/actions/workflows/ci.yml/badge.svg)](https://github.com/thomasaiwilcox/ClippyTyper/actions/workflows/ci.yml)
+
 A lightweight macOS utility that types the current clipboard text into the active application by simulating keystrokes. Designed for reliability, low resource usage, and fast control via a global hotkey, menu bar, CLI, or URL scheme.
 
 ## Features
