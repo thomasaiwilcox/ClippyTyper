@@ -49,3 +49,6 @@ Some apps capture the keyboard before macOS sees it. In Parallels: Options → S
 
 ## Contributing
 See `AGENTS.md` for coding standards, build/test commands, and workflow. Track progress in `implementationplan.md`.
+
+## License
+GPL-3.0-only. See `LICENSE` for details.
