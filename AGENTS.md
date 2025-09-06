@@ -23,7 +23,7 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+cmd+esc`).
 - Hotkeys: parser supports letters, digits, punctuation, arrows, function keys, and named keys (e.g., `cmd+shift+f12`). Preferences show status if registration fails (likely conflict).
  - CLI control: `swift run clippyctl start|pause|cancel` posts a distributed notification to the running app (useful for Stream Deck/Alfred). For a URL scheme, add CFBundleURLTypes when migrating to an Xcode app bundle.
- - Per‑App Exceptions: from the menu, choose “Exclude Current App” to add the frontmost app’s bundle ID to the skip list. ClippyTyper will not type when that app is active. Manage the list (basic) in Preferences in a future iteration.
+ - Per‑App Exceptions: exclude the current app from the menu, or manage the list in Preferences (add, remove, clear). ClippyTyper will not type when an excluded app is active.
 
 ## CI (GitHub Actions)
 - Workflow: `.github/workflows/ci.yml` runs on pushes and PRs to `main` and `release/**`.

@@ -56,6 +56,15 @@ final class PreferencesViewController: NSViewController {
         return b
     }()
 
+    // Exclusions UI
+    private let exclusionsLabel = NSTextField(labelWithString: "Excluded apps (bundle IDs)")
+    private let exclusionsScroll = NSScrollView()
+    private let exclusionsTable = NSTableView()
+    private let excludeCurrentButton = NSButton(title: "Exclude Current App", target: nil, action: nil)
+    private let removeSelectedButton = NSButton(title: "Remove Selected", target: nil, action: nil)
+    private let clearExclusionsButton = NSButton(title: "Clear All", target: nil, action: nil)
+    private var exclusions: [String] = []
+
     var onTypingSpeedChanged: ((Double) -> Void)?
     var onHotkeyChanged: ((String) -> Void)?
     var onLaunchAtLoginChanged: ((Bool) -> Void)?
@@ -86,7 +95,13 @@ final class PreferencesViewController: NSViewController {
         instantPasteFallbackCheckbox.state = defaults.bool(forKey: PreferencesKeys.instantPasteFallback) ? .on : .off
 
         // Build layout
-        [speedLabel, speedSlider, speedValueLabel, hotkeyLabel, hotkeyField, applyHotkeyButton, hotkeyStatusLabel, launchAtLoginCheckbox, emergencyCancelCheckbox, doublePressLabel, doublePressSlider, doublePressValueLabel, instantPasteFallbackCheckbox].forEach {
+        [speedLabel, speedSlider, speedValueLabel,
+         hotkeyLabel, hotkeyField, applyHotkeyButton, hotkeyStatusLabel,
+         launchAtLoginCheckbox,
+         emergencyCancelCheckbox,
+         doublePressLabel, doublePressSlider, doublePressValueLabel,
+         instantPasteFallbackCheckbox,
+         exclusionsLabel, exclusionsScroll, excludeCurrentButton, removeSelectedButton, clearExclusionsButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview($0)
         }
@@ -133,7 +148,24 @@ final class PreferencesViewController: NSViewController {
             doublePressValueLabel.leadingAnchor.constraint(equalTo: doublePressSlider.trailingAnchor, constant: 8),
 
             instantPasteFallbackCheckbox.topAnchor.constraint(equalTo: doublePressSlider.bottomAnchor, constant: 16),
-            instantPasteFallbackCheckbox.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor)
+            instantPasteFallbackCheckbox.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+
+            exclusionsLabel.topAnchor.constraint(equalTo: instantPasteFallbackCheckbox.bottomAnchor, constant: 16),
+            exclusionsLabel.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+
+            exclusionsScroll.topAnchor.constraint(equalTo: exclusionsLabel.bottomAnchor, constant: 8),
+            exclusionsScroll.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+            exclusionsScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            exclusionsScroll.heightAnchor.constraint(equalToConstant: 120),
+
+            excludeCurrentButton.topAnchor.constraint(equalTo: exclusionsScroll.bottomAnchor, constant: 8),
+            excludeCurrentButton.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
+
+            removeSelectedButton.centerYAnchor.constraint(equalTo: excludeCurrentButton.centerYAnchor),
+            removeSelectedButton.leadingAnchor.constraint(equalTo: excludeCurrentButton.trailingAnchor, constant: 8),
+
+            clearExclusionsButton.centerYAnchor.constraint(equalTo: excludeCurrentButton.centerYAnchor),
+            clearExclusionsButton.leadingAnchor.constraint(equalTo: removeSelectedButton.trailingAnchor, constant: 8)
         ])
 
         // Wire actions
@@ -150,7 +182,18 @@ final class PreferencesViewController: NSViewController {
         instantPasteFallbackCheckbox.target = self
         instantPasteFallbackCheckbox.action = #selector(onInstantPasteFallbackToggled)
 
+        excludeCurrentButton.target = self
+        excludeCurrentButton.action = #selector(onExcludeCurrentApp)
+        removeSelectedButton.target = self
+        removeSelectedButton.action = #selector(onRemoveSelected)
+        clearExclusionsButton.target = self
+        clearExclusionsButton.action = #selector(onClearExclusions)
+
         NotificationCenter.default.addObserver(self, selector: #selector(onHotkeyRegistrationResult(_:)), name: .hotkeyRegistrationResult, object: nil)
+
+        // Exclusions table setup
+        setupExclusionsTable()
+        loadExclusions()
     }
 
     @objc private func onInstantPasteFallbackToggled() {
@@ -213,5 +256,77 @@ final class PreferencesViewController: NSViewController {
         doublePressValueLabel.stringValue = String(format: "%.1f", val)
         UserDefaults.standard.set(val, forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
         onDoublePressWindowChanged?(val)
+    }
+
+    // MARK: - Exclusions
+
+    private func setupExclusionsTable() {
+        let col = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("BundleID"))
+        col.title = "Bundle ID"
+        col.width = 380
+        exclusionsTable.addTableColumn(col)
+        exclusionsTable.headerView = nil
+        exclusionsTable.usesAlternatingRowBackgroundColors = true
+        exclusionsTable.allowsMultipleSelection = true
+        exclusionsTable.delegate = self
+        exclusionsTable.dataSource = self
+        exclusionsScroll.documentView = exclusionsTable
+        exclusionsScroll.hasVerticalScroller = true
+        exclusionsScroll.borderType = .bezelBorder
+    }
+
+    private func loadExclusions() {
+        exclusions = (UserDefaults.standard.array(forKey: PreferencesKeys.perAppExceptions) as? [String] ?? [])
+        exclusionsTable.reloadData()
+    }
+
+    private func saveExclusions() {
+        UserDefaults.standard.set(exclusions, forKey: PreferencesKeys.perAppExceptions)
+        exclusionsTable.reloadData()
+    }
+
+    @objc private func onExcludeCurrentApp() {
+        guard let active = NSWorkspace.shared.frontmostApplication?.bundleIdentifier else { return }
+        if !exclusions.contains(active) {
+            exclusions.append(active)
+            exclusions.sort()
+            saveExclusions()
+        }
+    }
+
+    @objc private func onRemoveSelected() {
+        let rows = exclusionsTable.selectedRowIndexes
+        guard !rows.isEmpty else { return }
+        exclusions = exclusions.enumerated().filter { !rows.contains($0.offset) }.map { $0.element }
+        saveExclusions()
+    }
+
+    @objc private func onClearExclusions() {
+        exclusions.removeAll()
+        saveExclusions()
+    }
+}
+
+extension PreferencesViewController: NSTableViewDataSource, NSTableViewDelegate {
+    func numberOfRows(in tableView: NSTableView) -> Int { exclusions.count }
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let id = NSUserInterfaceItemIdentifier("Cell")
+        let cell = tableView.makeView(withIdentifier: id, owner: self) as? NSTableCellView ?? {
+            let v = NSTableCellView()
+            v.identifier = id
+            let tf = NSTextField(labelWithString: "")
+            tf.translatesAutoresizingMaskIntoConstraints = false
+            v.addSubview(tf)
+            v.textField = tf
+            NSLayoutConstraint.activate([
+                tf.leadingAnchor.constraint(equalTo: v.leadingAnchor, constant: 6),
+                tf.trailingAnchor.constraint(equalTo: v.trailingAnchor, constant: -6),
+                tf.topAnchor.constraint(equalTo: v.topAnchor, constant: 2),
+                tf.bottomAnchor.constraint(equalTo: v.bottomAnchor, constant: -2)
+            ])
+            return v
+        }()
+        cell.textField?.stringValue = exclusions[row]
+        return cell
     }
 }
