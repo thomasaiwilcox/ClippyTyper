@@ -117,6 +117,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let cps = UserDefaults.standard.double(forKey: PreferencesKeys.typingSpeed)
         let speed = cps > 0 ? cps : 15.0
 
+        // Fast-path: try AX value injection (instant insert) before typing keystrokes
+        if AXValueInjector.trySetValue(text) {
+            return
+        }
+
         // Cancel any existing session
         session?.cancel()
 
