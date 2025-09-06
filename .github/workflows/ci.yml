@@ -35,7 +35,7 @@ jobs:
           rm -rf .build
 
       - name: Build (Debug)
-        run: swift build --clean-build
+        run: swift build
 
       - name: Test
         run: swift test --parallel
