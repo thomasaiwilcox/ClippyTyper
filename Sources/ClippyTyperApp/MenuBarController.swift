@@ -13,6 +13,7 @@ final class MenuBarController: NSObject {
     var onQuit: (() -> Void)?
 
     private var pauseItem: NSMenuItem!
+    private var baseTitle: String = "Clippy"
 
     override init() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -22,7 +23,7 @@ final class MenuBarController: NSObject {
 
     private func constructMenu() {
         if let button = statusItem.button {
-            button.title = "Clippy"
+            button.title = baseTitle
             button.setAccessibilityLabel("ClippyTyper")
         }
         let menu = NSMenu()
@@ -80,5 +81,15 @@ final class MenuBarController: NSObject {
 
     func setPaused(_ paused: Bool) {
         pauseItem.title = paused ? "Resume Typing" : "Pause Typing"
+    }
+
+    func setProgress(_ fraction: Double?) {
+        guard let button = statusItem.button else { return }
+        if let f = fraction {
+            let pct = Int((f * 100).rounded())
+            button.title = "\(baseTitle) \(pct)%"
+        } else {
+            button.title = baseTitle
+        }
     }
 }
