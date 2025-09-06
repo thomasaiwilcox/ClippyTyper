@@ -61,6 +61,11 @@ Self‑hosted runner
 - Tag & Release: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`; `gh release create vX.Y.Z --notes <notes|file>`.
 - Version bump: on new release branch, update versions in `xcode/Info.plist` + `xcode/project.yml`, start next section in `CHANGELOG.md`.
 
+Branch protection
+- `main` is protected: no direct pushes; PRs required with at least 1 approving review.
+- Required status check: `CI / Build (Xcode)` must pass before merge.
+- Force pushes and deletions are disabled; conversation resolution required.
+
 ## GitHub CLI
 - Install: `brew install gh`; authenticate: `gh auth login` (grants gh and git access).
 - Repo: `gh repo view` shows current; `gh browse` opens it in a browser; set default with `gh repo set-default <owner>/<repo>` if needed.
