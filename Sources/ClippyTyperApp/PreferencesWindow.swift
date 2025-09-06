@@ -4,9 +4,10 @@ import ClippyTyperPreferences
 final class PreferencesWindowController: NSWindowController {
     init(contentViewController: NSViewController) {
         let window = NSWindow(contentViewController: contentViewController)
-        window.styleMask = [.titled, .closable, .miniaturizable]
+        window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
         window.title = "Preferences"
-        window.setContentSize(NSSize(width: 440, height: 320))
+        window.setContentSize(NSSize(width: 560, height: 520))
+        window.minSize = NSSize(width: 520, height: 420)
         super.init(window: window)
     }
 
@@ -156,7 +157,7 @@ final class PreferencesViewController: NSViewController {
             exclusionsScroll.topAnchor.constraint(equalTo: exclusionsLabel.bottomAnchor, constant: 8),
             exclusionsScroll.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
             exclusionsScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            exclusionsScroll.heightAnchor.constraint(equalToConstant: 120),
+            exclusionsScroll.heightAnchor.constraint(equalToConstant: 240),
 
             excludeCurrentButton.topAnchor.constraint(equalTo: exclusionsScroll.bottomAnchor, constant: 8),
             excludeCurrentButton.leadingAnchor.constraint(equalTo: speedLabel.leadingAnchor),
