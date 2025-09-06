@@ -21,18 +21,21 @@ jobs:
       - name: Swift toolchain
         run: swift --version
 
-      - name: Cache SwiftPM
+      - name: Cache SwiftPM dependencies (no build artifacts)
         uses: actions/cache@v4
         with:
           path: |
             ~/.swiftpm
-            .build
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
 
+      - name: Clean previous build artifacts
+        run: |
+          rm -rf .build
+
       - name: Build (Debug)
-        run: swift build
+        run: swift build --clean-build
 
       - name: Test
         run: swift test --parallel
