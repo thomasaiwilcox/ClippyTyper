@@ -29,11 +29,14 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 ## CI (GitHub Actions)
 - Workflow: `.github/workflows/ci.yml` runs on pushes and PRs to `main` and `release/**`.
 - Jobs:
-  - Build & Test (SwiftPM): `swift build` and `swift test` on `macos-13`.
   - Lint (optional): installs `swiftformat`/`swiftlint` via Homebrew and runs `Scripts/lint.sh`.
   - Build (Xcode): generates with XcodeGen and builds the `ClippyTyper` scheme.
   - Test (Xcode, best-effort): runs `xcodebuild … test`; marked continue-on-error since UI automation can be restricted on runners.
 - View status: `gh run list` and open checks in the PR UI; rerun with `gh run rerun <id>`.
+
+Self‑hosted runner
+- Uses `runs-on: self-hosted` for Xcode Build/Test and Lint; the SwiftPM job is intentionally removed for stability.
+- Ensure the runner has Xcode + CLTs installed and `xcode-select -p` points to Xcode.
 
 ## Coding Style & Naming Conventions
 - Swift 5+, Swift API Design Guidelines; 4-space indent; ~120 col width.
@@ -49,6 +52,14 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Commits: Conventional Commits (`feat:`, `fix:`, `refactor:`, `test:`, `docs:`, `chore:`). Keep small and scoped.
 - Branches: `feature/<short-desc>` or `fix/<issue-#>` (e.g., `feature/typing-speed-pref`).
 - PRs: Include description, linked issues, screenshots/GIFs, notes on permissions/entitlements, and a short manual test checklist.
+
+## Workflow & Releases
+- Branching: use short-lived branches (`feature/*`, `fix/*`); for releases, create `release/vX.Y.Z`.
+- PR flow: push branch → `gh pr create --fill` → CI must pass (Xcode Build/Test + Lint on self‑hosted). Reference tasks in `implementationplan.md` and update `CHANGELOG.md`.
+- Definition of Done: green CI, `CHANGELOG.md` updated, plan updated, PR body checklist ticked, brief screenshots if UI changed.
+- Merge: squash via `gh pr merge --squash --delete-branch` into `main`.
+- Tag & Release: `git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z`; `gh release create vX.Y.Z --notes <notes|file>`.
+- Version bump: on new release branch, update versions in `xcode/Info.plist` + `xcode/project.yml`, start next section in `CHANGELOG.md`.
 
 ## GitHub CLI
 - Install: `brew install gh`; authenticate: `gh auth login` (grants gh and git access).
