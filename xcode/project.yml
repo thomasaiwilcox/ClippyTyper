@@ -34,6 +34,22 @@ targets:
       base:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - target: ClippyTyperHelper
+        embed: true
+        embedLinked: true
+  ClippyTyperHelper:
+    type: application
+    platform: macOS
+    info:
+      path: xcode/HelperInfo.plist
+      properties:
+        CFBundleIdentifier: com.clippytyper.helper
+        CFBundleName: ClippyTyperHelper
+        LSBackgroundOnly: true
+        LSUIElement: true
+    sources:
+      - path: ../Sources/ClippyTyperHelper
   ClippyTyperUITests:
     type: bundle.ui-testing
     platform: macOS

@@ -19,6 +19,7 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Core library (SwiftPM): `swift build` and `swift test` for `ClippyTyperCore`.
 - Run skeleton app (SwiftPM): `swift run ClippyTyperApp` (Status bar shows "Clippy"). Uses `CGEvent` to emit keystrokes; requires Accessibility permission.
 - Preferences: open from the menu to change typing speed and global hotkey; updates apply immediately and hotkey re-registers live. Toggle emergency cancel and adjust double‑press window. Launch at login uses a user LaunchAgent during SPM development; a bundled login helper can be added for releases.
+ - Launch at login: in the bundled Xcode app, uses `SMAppService` with a helper target (`ClippyTyperHelper`); during SwiftPM dev, falls back to a user LaunchAgent.
  - Permissions: open from the menu to review Accessibility/Input Monitoring status and jump to System Settings. The app auto-opens this if a required permission is missing at launch.
 - Controls: Menu provides Start, Pause/Resume, Cancel. Hotkeys: typing (from prefs), pause (`ctrl+opt+esc`), cancel (`ctrl+opt+cmd+esc`).
 - Hotkeys: parser supports letters, digits, punctuation, arrows, function keys, and named keys (e.g., `cmd+shift+f12`). Preferences show status if registration fails (likely conflict).
@@ -91,6 +92,7 @@ Targets a macOS AppKit menu bar utility that types clipboard text via Accessibil
 - Xcode project: optional via XcodeGen.
   - Easiest: `make xcode` (runs XcodeGen and opens the project).
   - Or manually: `cd xcode && xcodegen generate && open ClippyTyper.xcodeproj`.
+  - Helper target `ClippyTyperHelper` is included for login items; ensure code signing is set before testing `SMAppService`.
   - Build via Xcode: `make xcode-build` (uses scheme `ClippyTyper`; override with `XCODE_SCHEME=…`).
   - Test via Xcode: `make xcode-test` (runs the scheme’s test action; UI tests require enabling automation permissions).
   - The app target registers the URL scheme `clippytyper://<action>` (actions: `start`, `pause`, `cancel`).

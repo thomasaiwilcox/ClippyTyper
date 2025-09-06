@@ -86,8 +86,8 @@ final class PreferencesViewController: NSViewController {
         speedValueLabel.stringValue = String(Int(speedSlider.doubleValue))
         let currentHotkey = defaults.string(forKey: PreferencesKeys.hotkey) ?? "ctrl+opt+t"
         hotkeyField.stringValue = currentHotkey
-        // Prefer actual system state; fall back to stored pref
-        let sysEnabled = LaunchAtLoginManager.isEnabled()
+        // Prefer actual system state (SMAppService when bundled; fallback to LaunchAgent)
+        let sysEnabled = LoginItemManager.isEnabled()
         launchAtLoginCheckbox.state = sysEnabled ? .on : (defaults.bool(forKey: PreferencesKeys.launchAtLogin) ? .on : .off)
         emergencyCancelCheckbox.state = defaults.bool(forKey: PreferencesKeys.emergencyCancelEnabled) ? .on : .off
         let dpw = defaults.double(forKey: PreferencesKeys.emergencyCancelDoublePressWindow)
@@ -231,7 +231,7 @@ final class PreferencesViewController: NSViewController {
     @objc private func onLaunchAtLoginToggled() {
         let enabled = (launchAtLoginCheckbox.state == .on)
         do {
-            try LaunchAtLoginManager.setEnabled(enabled)
+            try LoginItemManager.setEnabled(enabled)
             UserDefaults.standard.set(enabled, forKey: PreferencesKeys.launchAtLogin)
             onLaunchAtLoginChanged?(enabled)
         } catch {
@@ -241,7 +241,7 @@ final class PreferencesViewController: NSViewController {
             alert.informativeText = String(describing: error)
             alert.addButton(withTitle: "OK")
             alert.runModal()
-            launchAtLoginCheckbox.state = LaunchAtLoginManager.isEnabled() ? .on : .off
+            launchAtLoginCheckbox.state = LoginItemManager.isEnabled() ? .on : .off
         }
     }
 
